@@ -5,7 +5,7 @@ const { login } = require("../controllers/authController");
 
 
 // 📌 Endpoint per la registrazione
-router.post("/auth/register", register);
-router.post("/auth/login", login);
+router.post("/register", register);
+router.post("/login", login);
 
 module.exports = router;

@@ -1,6 +1,6 @@
-const Sfida = require("../models/sfida");
+const { Sfida } = require("../models");
 
-const createSfida = async (req, res) => {
+exports.createSfida = async (req, res) => {
     try {
       const { title, description, data } = req.body;
       const newSfida = await Sfida.create({ title, description, data });
@@ -10,9 +10,8 @@ const createSfida = async (req, res) => {
     }
   };
 
-module.exports = {createSfida};
 
-const getAllSfide = async (req, res) => {
+exports.getAllSfide = async (req, res) => {
     try {
       const Sfide = await Sfida.findAll();
       res.json(Sfide);
@@ -20,9 +19,9 @@ const getAllSfide = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
-  module.exports = {getAllSfide};
+  
 
-  const getSfidaById = async (req, res) => {
+exports.getSfidaById = async (req, res) => {
     try {
       const { id } = req.params;
       const sfida = await Sfida.findByPk(id);
@@ -32,9 +31,9 @@ const getAllSfide = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
-  module.exports = {getSfidaById};
 
-  const updateSfida = async (req, res) => {
+
+  exports.updateSfida = async (req, res) => {
     try {
       const { id } = req.params;
       const { title, description, data } = req.body;
@@ -51,9 +50,9 @@ const getAllSfide = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
-  module.exports = {updateSfida};
+  
 
-  const deleteSfida = async (req, res) => {
+  exports.deleteSfida = async (req, res) => {
     try {
       const { id } = req.params;
       const sfida = await Sfida.findByPk(id);
@@ -65,7 +64,7 @@ const getAllSfide = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
-  module.exports = {deleteSfida};
+
 
 
   
