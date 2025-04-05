@@ -43,11 +43,20 @@ body {
   }
 }
 
-.sfondo {
-  background-image: url('./materials/sfondo.jpg'); /* Sostituisci con il percorso corretto dell'immagine */
+.sfondologin {
+  background-image: url('./materials/sfondo.jpg');
   background-size: cover; /* Adatta l'immagine per coprire l'intero contenitore */
   background-position: center; /* Centra l'immagine */
   background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
+  height: 100vh; /* Imposta l'altezza all'intera finestra */
+  width: 100vw; /* Imposta la larghezza all'intera finestra */
+  display: flex; /* Per centrare il contenuto */
+  justify-content: center; /* Centra orizzontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+.sfondocreator {
+  background-image: url('./materials/sfondocreator.jpg');
   height: 100vh; /* Imposta l'altezza all'intera finestra */
   width: 100vw; /* Imposta la larghezza all'intera finestra */
   display: flex; /* Per centrare il contenuto */

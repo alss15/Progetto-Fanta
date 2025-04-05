@@ -11,7 +11,7 @@ import {
 
 const LoginPage = () => {
   return (
-    <div className="sfondo"> {/* Usa la classe sfondo */}
+    <div className="sfondologin"> {/* Usa la classe sfondo */}
       <Container maxWidth="sm">
         <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
           <Typography className="kode-mono" variant="h4" align="center" gutterBottom>
