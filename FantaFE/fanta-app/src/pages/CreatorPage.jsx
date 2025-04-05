@@ -39,8 +39,13 @@ const CreatorPage = () => {
         />
 
         {/* Scritta di benvenuto */}
-        <Typography variant="h5" gutterBottom>
-          Bentornato Creator
+        <Typography variant="h6"
+          sx={{ /* serve per personalizzare */
+            fontFamily: 'Kode Mono, monospace', 
+            fontWeight: 'bold',
+          }} 
+          gutterBottom>
+            Bentornato Creator
         </Typography>
 
         {/* Lista di checklist */}
@@ -63,6 +68,7 @@ const CreatorPage = () => {
                 </ListItemIcon>
                 <ListItemText
                   primary={`${task.text} - Punti: ${task.score}`}
+                  
                   style={{
                     textDecoration: task.completed ? "color: green" : "none",
                     color: task.completed ? "green" : "black",

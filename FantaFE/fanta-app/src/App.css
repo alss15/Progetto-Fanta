@@ -64,6 +64,16 @@ body {
   align-items: center; /* Centra verticalmente */
 }
 
+.sfondoadmin {
+  background-image: url('./materials/sfondoadmin.jpg');
+  height: 100vh; /* Imposta l'altezza all'intera finestra */
+  width: 100vw; /* Imposta la larghezza all'intera finestra */
+  display: flex; /* Per centrare il contenuto */
+  justify-content: center; /* Centra orizzontalmente */
+  align-items: center; /* Centra verticalmente */
+  
+}
+
 .kode-mono {
   font-family: 'Kode Mono', monospace;
 }
