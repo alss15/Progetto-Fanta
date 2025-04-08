@@ -67,7 +67,7 @@ const Profilo = () => {
      
 
       {/* Contenuto del profilo */}
-      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 4, px: 2 }}>
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", px: 2 }}>
         {/* Informazioni del profilo */}
         <Box sx={{ display: "flex", alignItems: "center", mb: 4, width: "60%" }}>
           <Avatar
@@ -86,15 +86,16 @@ const Profilo = () => {
         </Box>
 
         {/* Sezione notifiche */}
-        <Box sx={{ mb: 4, width: "60%" }}>
+        <Box sx={{ mb: 4, width: "20%", display: "flex", flexDirection: "column", alignItems: "flex-start" }}> {/* Allinea a sinistra */}
           {/* Tasto Home Social */}
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/Home-Social" style={{ textDecoration: "none", width: "100%" }}>
             <Button
               variant="contained"
               sx={{
                 backgroundColor: "#044c93",
                 color: "white",
                 mb: 2,
+                width: "100%", // Mantiene la larghezza del contenitore
                 '&:hover': {
                   backgroundColor: "#033b73",
                 },
@@ -107,7 +108,12 @@ const Profilo = () => {
           {/* Tasto Notifiche */}
           <Button
             variant="contained"
-            sx={{ backgroundColor: "#044c93", color: "white", mb: 2 }}
+            sx={{
+              backgroundColor: "#044c93",
+              color: "white",
+              mb: 2,
+              width: "100%", // Mantiene la larghezza del contenitore
+            }}
             onClick={handleNotificationsClick}
           >
             <NotificationsIcon

@@ -179,7 +179,7 @@ const HomeSocial = () => {
       }}
     >
       {/* Contenuto principale */}
-      <Box sx={{ display: "flex", flexDirection: "row", mt: 2, px: 2 }}>
+      <Box sx={{ display: "flex", flexDirection: "row", px: 2 }}>
         {/* Sezione laterale sinistra */}
         <Box sx={{ width: "20%", p: 2 }}>
           <Link to="/" style={{ textDecoration: "none" }}>
