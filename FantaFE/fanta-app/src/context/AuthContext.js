@@ -17,8 +17,8 @@ const AuthProvider =({ children }) => {
         }
     }, []);
 
-    const login = async (username, password, role) => {
-        const { token } = await loginUser (username, password, role);
+    const login = async (username, password) => {
+        const { token } = await loginUser (username, password);
         localStorage.setItem('token', token);
         setAuthToken(token);
         setAuthTokenState(token);

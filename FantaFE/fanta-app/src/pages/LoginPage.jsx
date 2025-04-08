@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import Login from "../components/Login";
 import {
   Container,
   Box,
@@ -8,7 +9,7 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
-import Login from "../components/Login";
+
 
 const LoginPage = () => {
   return (

@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage';
 import NavBar from './components/NavBar';
 import HomeSocial from './pages/HomeSocial';
 import Profilo from './pages/Profilo';
+import AuthProvider from './context/AuthContext';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ const HomePage = () => {
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <NavBar />
       <Routes>
@@ -56,6 +58,7 @@ function App() {
         <Route path="/profilo" element={<Profilo />} />
       </Routes>
     </Router>
+    </AuthProvider>
   );
 }
 

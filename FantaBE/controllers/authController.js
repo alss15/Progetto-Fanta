@@ -34,6 +34,7 @@ exports.register = async (req, res) => {
 
 // Segreto per firmare i token. Meglio se in variabile d'ambiente
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
+
 exports.login = async (req, res) => {
  try {
  const { username, password } = req.body;

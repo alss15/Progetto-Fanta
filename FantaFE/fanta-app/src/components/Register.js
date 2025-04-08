@@ -1,13 +1,16 @@
 import React, {useState} from "react";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
     const { register } = useAuth();
+     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: "",
         password: "",
         role: "utente",
     });
+
     const handleChange = (e) => {
         const {name, value} = e.target;
         setFormData (prev => ({ ...prev, [name] : value }));
@@ -17,7 +20,8 @@ const RegisterForm = () => {
         e.preventDefault ();
         try {
             await register(formData.username, formData.password, formData.role);
-            alert ("Registrazione completata con successo!")
+            alert ("Registrazione completata con successo!");
+            navigate("/HomeSocial");
         } catch (error) {
             alert ("Errore durante la registrazione");
         }
@@ -48,7 +52,7 @@ const RegisterForm = () => {
             </div>
 
             <div>
-                <label> RUolo:</label> <br/>
+                <label> Ruolo:</label> <br/>
                 <label>
                 <input 
                 type="radio"
@@ -88,9 +92,4 @@ const RegisterForm = () => {
         </form>
     );
 };
-<<<<<<< HEAD
-;
-=======
-
->>>>>>> c481563fd427ba279c90750d6ae3247be312ca91
 export default RegisterForm;

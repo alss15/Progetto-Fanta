@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
@@ -8,25 +9,23 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
-import { loginUser } from "../services/api"; // Importa l'API di login
+
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Chiamata all'API di login
-      const response = await loginUser(username, password);
-      
-      // Salva il token restituito dal backend (se presente)
+      const response = await login (username, password);
       const token = response.token; // Assumendo che il backend restituisca un campo "token"
       if (token) {
         localStorage.setItem("authToken", token); // Salva il token in localStorage
         console.log("Login effettuato con successo:", response);
-        navigate("/"); // Reindirizza alla home
+        navigate("/HomeSocial"); // Reindirizza alla home
       } else {
         alert("Errore: Token non ricevuto dal backend.");
       }
@@ -34,8 +33,8 @@ const Login = () => {
       console.error("Errore durante il login:", error);
       alert("Errore durante il login. Controlla le credenziali e riprova.");
     }
-  };
-
+  
+  }; 
   return (
     <Container maxWidth="sm">
       <Paper elevation={3} sx={{ p: 4, borderRadius: 3, mt: 4 }}>
@@ -52,7 +51,7 @@ const Login = () => {
           }}
         >
           <TextField
-            label="Email"
+            label="Username"
             fullWidth
             variant="outlined"
             value={username}
