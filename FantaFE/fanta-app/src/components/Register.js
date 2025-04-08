@@ -21,7 +21,7 @@ const RegisterForm = () => {
         try {
             await register(formData.username, formData.password, formData.role);
             alert ("Registrazione completata con successo!");
-            navigate("/HomeSocial");
+            navigate("/home-social");
         } catch (error) {
             alert ("Errore durante la registrazione");
         }
