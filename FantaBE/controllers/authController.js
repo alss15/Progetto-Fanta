@@ -1,4 +1,4 @@
-const { User } = require('../models/user');
+const { User } = require('../models');
 const bcrypt = require ('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -18,12 +18,11 @@ exports.register = async (req, res) => {
    const hashedPassword = await bcrypt.hash(password, 10);
  // (4) Crea utente
    const newUser = await User.create({
-    nome,
-    cognome,
-  username,
-  password: hashedPassword,
-  role
- });
+     nome,
+     cognome,
+     username,
+     password: hashedPassword,
+     role });
   return res.status(201).json({ message: 'Utente creato', userId: newUser.id
  });
  } catch (err) {

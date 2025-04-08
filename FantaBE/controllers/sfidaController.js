@@ -1,9 +1,16 @@
-const { Sfida } = require("../models");
+
+const db = require('../models');
+const Sfida = db.Sfida;
 
 exports.createSfida = async (req, res) => {
     try {
       const { title, description, data } = req.body;
-      const newSfida = await Sfida.create({ title, description, data });
+      if (req.user && (req.user.role !== 'admin' )) {
+        return res.status(403).json ({ error: "Non autorizzato"});
+
+      }
+
+      const newSfida = await Sfida.create({ title, description, data});
       res.status(201).json(newSfida);
     } catch (error) {
       res.status(500).json({ error: error.message });
