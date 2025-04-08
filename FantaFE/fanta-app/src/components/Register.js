@@ -88,5 +88,9 @@ const RegisterForm = () => {
         </form>
     );
 };
+<<<<<<< HEAD
 ;
+=======
+
+>>>>>>> c481563fd427ba279c90750d6ae3247be312ca91
 export default RegisterForm;
