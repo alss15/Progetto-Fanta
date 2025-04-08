@@ -87,6 +87,24 @@ const Profilo = () => {
 
         {/* Sezione notifiche */}
         <Box sx={{ mb: 4, width: "60%" }}>
+          {/* Tasto Home Social */}
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#044c93",
+                color: "white",
+                mb: 2,
+                '&:hover': {
+                  backgroundColor: "#033b73",
+                },
+              }}
+            >
+              Home Social
+            </Button>
+          </Link>
+
+          {/* Tasto Notifiche */}
           <Button
             variant="contained"
             sx={{ backgroundColor: "#044c93", color: "white", mb: 2 }}

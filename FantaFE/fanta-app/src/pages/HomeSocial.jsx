@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { AppBar, Toolbar, Typography, Box, TextField, Button, Card, CardContent, CardMedia, Avatar, IconButton, Menu, MenuItem, Snackbar, Alert } from "@mui/material";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import CheckCircleIcon from "@mui/icons-material/CheckCircle"; // Importa l'icona di check verde
 import { Link } from "react-router-dom";
 import DolceImage from "../materials/Dolce.jpg";
 import PiantaImage from "../materials/Pianta.jpg";
+import NoProfilePicture from "../materials/NoProfilePicture.jpg"; // Importa l'immagine di default
 
 const HomeSocial = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -23,17 +25,19 @@ const HomeSocial = () => {
       id: 1,
       creatorId: 2,
       creatorName: "Laura Bianchi",
-      content: "Buongiorno amici! Iniziamo bene la settimana con questa nuova piantina in ufficio. Vi piace? A me piace TANTISSIMO!",
+      content: "Buongiorno amici! Iniziamo bene la settimana con questa nuova piantina in ufficio. Vi piace? A me piace TANTISSIMO! #greenlife #greenchallenge #sostenibilità #SfidaSettimanale",
       image: PiantaImage,
+      challengeType: "SFIDA SETTIMANALE", // Aggiungi il tipo di sfida
       likes: [],
       comments: [],
     },
     {
       id: 2,
       creatorId: 3,
-      creatorName: "Pippo Rossi",
-      content: "Ho fatto la sfida green giornaliera! Ecco a voi il mio dolce vegano :D. Che ne pensate?",
+      creatorName: "Giovanni Verdi",
+      content: "Ho fatto la sfida green giornaliera! Ecco a voi il mio dolce vegano :D. Che ne pensate? #greenlife #greenchallenge #sostenibilità #SfidaGiornaliera",
       image: DolceImage,
+      challengeType: "SFIDA GIORNALIERA", // Tipo di sfida
       likes: [],
       comments: [],
     },
@@ -147,6 +151,7 @@ const HomeSocial = () => {
       creatorName: `${user.firstName} ${user.lastName}`,
       content: newPostContent,
       image: newPostImage,
+      challengeType: newPostChallengeType, // Aggiungi il tipo di sfida
       likes: [],
       comments: [],
     };
@@ -340,9 +345,20 @@ const HomeSocial = () => {
               <Card key={post.id} sx={{ mb: 2, borderColor: "#044c93", borderWidth: 1, borderStyle: "solid" }}>
                 <CardContent>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                    <Avatar alt={post.creatorName} src={require("../materials/Laura.png")} sx={{ width: 40, height: 40, mr: 2 }} />
+                    <Avatar
+                      alt={post.creatorName}
+                      src={post.creatorId === user.id && user.avatar ? user.avatar : NoProfilePicture} // Usa l'immagine dell'utente o quella di default
+                      sx={{ width: 40, height: 40, mr: 2 }}
+                    />
                     <Typography variant="h6" sx={{ fontWeight: "bold", color: "#044c93" }}>
                       {post.creatorName}
+                    </Typography>
+                  </Box>
+                  {/* Tipo di sfida */}
+                  <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                    <CheckCircleIcon sx={{ color: "green", mr: 1 }} />
+                    <Typography variant="body2" sx={{ color: "#044c93", fontWeight: "bold" }}>
+                      {post.challengeType}
                     </Typography>
                   </Box>
                   <Typography variant="body1" sx={{ mb: 2 }}>
