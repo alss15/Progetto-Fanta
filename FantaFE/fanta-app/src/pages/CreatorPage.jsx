@@ -20,7 +20,7 @@ const CreatorPage = () => {
   };
 
   return (
-    <div className="sfondocreator"> {/* Usa la classe sfondocreator */}
+    <div className="sfondocreatorcolor"> {/* Usa la classe sfondocreator */}
       <Container
         maxWidth="sm"
         sx={{

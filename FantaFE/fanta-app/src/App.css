@@ -55,6 +55,10 @@ body {
   align-items: center; /* Centra verticalmente */
 }
 
+.sfondocreatorcolor {
+  background-color: #044c93 /* Colore di sfondo blu eni */
+
+}
 .sfondocreator {
   background-image: url('./materials/sfondocreator.jpg');
   height: 100vh; /* Imposta l'altezza all'intera finestra */
