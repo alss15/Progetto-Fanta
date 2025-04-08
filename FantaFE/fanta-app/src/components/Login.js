@@ -1,74 +1,80 @@
-import React, { useState } from 'react';
-import { AuthContext, useAuth} from '../context/AuthContext';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Container,
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Paper,
+} from "@mui/material";
+import { loginUser } from "../services/api"; // Importa l'API di login
 
 const Login = () => {
-    const  { login }  = useAuth(AuthContext);
-    const [username, setUsername] = useState ('');
-    const [ password, setPassword] = useState ('');
-    const [role, setRole] = useState('');
-    
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await login (username, password, role);
-            console.log('Login avvenuto con successo!');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-        } catch (error) {
-            console.error('Errore login:', error);
-        }
-    };
-    return (
-        <form onSubmit= {handleSubmit}>
-            <div> 
-                <label> Username </label>
-                <input value= {username} onChange = {(e) => setUsername(e.target.value)} required />
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Chiamata all'API di login
+      const response = await loginUser(username, password);
+      
+      // Salva il token restituito dal backend (se presente)
+      const token = response.token; // Assumendo che il backend restituisca un campo "token"
+      if (token) {
+        localStorage.setItem("authToken", token); // Salva il token in localStorage
+        console.log("Login effettuato con successo:", response);
+        navigate("/"); // Reindirizza alla home
+      } else {
+        alert("Errore: Token non ricevuto dal backend.");
+      }
+    } catch (error) {
+      console.error("Errore durante il login:", error);
+      alert("Errore durante il login. Controlla le credenziali e riprova.");
+    }
+  };
 
-            </div>
-            <div>
-                <label>Password</label>
-                <input type="password" value= {password} onChange={(e) => setPassword (e.target.value)} required />
-            </div>
-            <div>
-             <label> RUolo:</label> <br/>
-              <label>
-             <input 
-            type="radio"
-            name="role"
-            value="admin"
-            onChange={(e) => setRole (e.target.value)}
-    />
-    Admin
-    </label>
-    <label>
-    <input 
-    type= "radio"
-    name="role"
-    value="creator"
-    onChange={(e) => setRole (e.target.value)}
-    />
-    Creator
-</label>
-<label>
-    <input
-    type="radio"
-    name="role"
-    value="utente"
-    onChange={(e) => setRole (e.target.value)}
-    />
-    Utente
-</label>
-</div>
-            <button type="submit"> Login </button>
-
-
-        </form>
-        
-    );
-
+  return (
+    <Container maxWidth="sm">
+      <Paper elevation={3} sx={{ p: 4, borderRadius: 3, mt: 4 }}>
+        <Typography variant="h4" align="center" gutterBottom>
+          Accedi
+        </Typography>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+          }}
+        >
+          <TextField
+            label="Email"
+            fullWidth
+            variant="outlined"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            margin="normal"
+          />
+          <TextField
+            label="Password"
+            type="password"
+            fullWidth
+            variant="outlined"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            margin="normal"
+          />
+          <Button variant="contained" color="primary" size="large" type="submit">
+            Accedi
+          </Button>
+        </Box>
+      </Paper>
+    </Container>
+  );
 };
-<<<<<<< HEAD
-;
-=======
 
->>>>>>> c481563fd427ba279c90750d6ae3247be312ca91
 export default Login;
