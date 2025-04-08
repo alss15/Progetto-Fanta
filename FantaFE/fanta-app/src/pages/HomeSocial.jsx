@@ -13,7 +13,7 @@ const HomeSocial = () => {
   const [newPostChallengeType, setNewPostChallengeType] = useState("SFIDA GIORNALIERA");
   const [newPostImage, setNewPostImage] = useState(null);
   const [user, setUser] = useState({
-    id: 1, // ID univoco dell'utente autenticato
+    id: 1,
     firstName: "Mario",
     lastName: "Rossi",
   });
@@ -21,12 +21,12 @@ const HomeSocial = () => {
   const [posts, setPosts] = useState([
     {
       id: 1,
-      creatorId: 2, // ID del creatore del post
+      creatorId: 2,
       creatorName: "Laura Bianchi",
       content: "Buongiorno amici! Iniziamo bene la settimana con questa nuova piantina in ufficio. Vi piace? A me piace TANTISSIMO!",
       image: PiantaImage,
-      likes: [], // Lista di ID degli utenti che hanno messo "Mi piace"
-      comments: [], // Lista di commenti: { userId, userName, text }
+      likes: [],
+      comments: [],
     },
     {
       id: 2,
@@ -40,16 +40,10 @@ const HomeSocial = () => {
   ]);
 
   const [notifications, setNotifications] = useState([]);
-
-  // Stato per il menu delle notifiche
   const [anchorEl, setAnchorEl] = useState(null);
-
-  // Stato per il messaggio di errore
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  // Simula il recupero di articoli reali
   useEffect(() => {
-    // Array di articoli reali con link a Fanpage
     const fetchedNews = [
       {
         title: "Riduzione della plastica: consigli utili",
@@ -70,18 +64,15 @@ const HomeSocial = () => {
     setNews(fetchedNews);
   }, []);
 
-  // Funzione per aprire il menu delle notifiche
   const handleNotificationsClick = (event) => {
-    setAnchorEl(event.currentTarget); // Apre il menu
+    setAnchorEl(event.currentTarget);
   };
 
-  // Funzione per chiudere il menu delle notifiche
   const handleNotificationsClose = () => {
-    setAnchorEl(null); // Chiude il menu
-    setNotifications([]); // Svuota le notifiche solo dopo che il menu è stato chiuso
+    setAnchorEl(null);
+    setNotifications([]);
   };
 
-  // Funzione per caricare un'immagine
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -90,18 +81,13 @@ const HomeSocial = () => {
     }
   };
 
-  // Funzione per gestire i "Mi piace"
   const handleLike = (postId) => {
     const updatedPosts = posts.map((post) => {
       if (post.id === postId) {
         if (post.likes.includes(user.id)) {
-          // Rimuovi il "Mi piace" se già presente
           post.likes = post.likes.filter((userId) => userId !== user.id);
         } else {
-          // Aggiungi il "Mi piace"
           post.likes.push(user.id);
-
-          // Aggiungi una notifica per il creatore del post
           if (post.creatorId !== user.id) {
             setNotifications((prev) => [
               ...prev,
@@ -118,10 +104,9 @@ const HomeSocial = () => {
     setPosts(updatedPosts);
   };
 
-  // Funzione per aggiungere un commento
   const handleAddComment = (postId, commentText) => {
     if (!user || !user.firstName || !user.lastName) {
-      setSnackbarOpen(true); // Mostra il messaggio di errore
+      setSnackbarOpen(true);
       return;
     }
 
@@ -135,7 +120,6 @@ const HomeSocial = () => {
           text: commentText,
         });
 
-        // Aggiungi una notifica per il creatore del post
         if (post.creatorId !== user.id) {
           setNotifications((prev) => [
             ...prev,
@@ -151,15 +135,14 @@ const HomeSocial = () => {
     setPosts(updatedPosts);
   };
 
-  // Funzione per creare un nuovo post
   const handleCreatePost = () => {
     if (!newPostContent.trim()) {
-      setSnackbarOpen(true); // Mostra un messaggio di errore se il contenuto è vuoto
+      setSnackbarOpen(true);
       return;
     }
-  
+
     const newPost = {
-      id: Date.now(), // Genera un ID unico per il post
+      id: Date.now(),
       creatorId: user.id,
       creatorName: `${user.firstName} ${user.lastName}`,
       content: newPostContent,
@@ -167,14 +150,13 @@ const HomeSocial = () => {
       likes: [],
       comments: [],
     };
-  
-    setPosts((prevPosts) => [newPost, ...prevPosts]); // Aggiungi il nuovo post in cima al feed
-    setNewPostContent(""); // Resetta il contenuto del post
-    setNewPostChallengeType("SFIDA GIORNALIERA"); // Resetta il tipo di sfida
-    setNewPostImage(null); // Resetta l'immagine
+
+    setPosts((prevPosts) => [newPost, ...prevPosts]);
+    setNewPostContent("");
+    setNewPostChallengeType("SFIDA GIORNALIERA");
+    setNewPostImage(null);
   };
 
-  // Funzione per chiudere il Snackbar
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
@@ -186,98 +168,42 @@ const HomeSocial = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         minHeight: "100vh",
+        margin: 0, // Rimuove margini
+        padding: 0, // Rimuove padding
+        boxSizing: "border-box", // Assicura che il padding non influenzi le dimensioni
       }}
     >
-      {/* Barra di navigazione */}
-      <AppBar position="static" sx={{ backgroundColor: "#044c93", p: 1 }}>
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          {/* Logo o titolo */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Typography variant="h6" sx={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', color: "white" }}>
-              FantaSocial
-            </Typography>
-            {/* Loghi delle aziende */}
-            <Box sx={{ display: "flex", gap: 1 }}>
-              <img
-                src={require("../materials/logo eni-joule.png")}
-                alt="Logo Eni Joule"
-                style={{ height: 40 }}
-              />
-              <img
-                src={require("../materials/logo ey.png")}
-                alt="Logo EY"
-                style={{ height: 40 }}
-              />
-              <img
-                src={require("../materials/logo startup geeks.png")}
-                alt="Logo Startup Geeks"
-                style={{ height: 40 }}
-              />
-            </Box>
-          </Box>
-
-          {/* Punti al centro */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Typography variant="h6" sx={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', color: "white" }}>
-              PUNTI 535
-            </Typography>
-            <img
-              src={require("../materials/Moneta.png")}
-              alt="Moneta"
-              style={{
-                height: 30,
-                width: 30,
-                borderRadius: "50%",
-                objectFit: "cover",
-              }}
-            />
-          </Box>
-
-          {/* Profilo in alto a destra */}
-          <Box sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
-            <Link to="/profilo" style={{ textDecoration: "none", display: "flex", alignItems: "center", color: "inherit" }}>
-              <Typography variant="body1" sx={{ mr: 1, fontFamily: 'Arial, sans-serif', fontWeight: 'bold', color: "white" }}>
-                {user.firstName} {user.lastName} {/* Nome e cognome dinamici */}
-              </Typography>
-              <Avatar
-                alt={`${user.firstName} ${user.lastName}`}
-                src={require("../materials/mario.jpg")}
-                sx={{ width: 40, height: 40 }}
-              />
-            </Link>
-          </Box>
-        </Toolbar>
-      </AppBar>
-
       {/* Contenuto principale */}
       <Box sx={{ display: "flex", flexDirection: "row", mt: 2, px: 2 }}>
         {/* Sezione laterale sinistra */}
         <Box sx={{ width: "20%", p: 2 }}>
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{
-              mb: 2,
-              backgroundColor: "#044c93",
-              color: "white", // Font bianco
-              fontWeight: "bold",
-              '&:hover': {
-                backgroundColor: "#033b73", // Colore più scuro al passaggio del mouse
-              },
-            }}
-          >
-            Menu
-          </Button>
-          <Link to="/creator" style={{ textDecoration: "none" }}>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Button
+              fullWidth
+              variant="contained"
+              sx={{
+                mb: 2,
+                backgroundColor: "#044c93",
+                color: "white",
+                fontWeight: "bold",
+                '&:hover': {
+                  backgroundColor: "#033b73",
+                },
+              }}
+            >
+              Menu
+            </Button>
+          </Link>
+          <Link to="/profilo" style={{ textDecoration: "none" }}>
             <Button
               fullWidth
               variant="contained"
               sx={{
                 mb: 1,
                 backgroundColor: "#044c93",
-                color: "white", // Font bianco
+                color: "white",
                 '&:hover': {
-                  backgroundColor: "#033b73", // Colore più scuro al passaggio del mouse
+                  backgroundColor: "#033b73",
                 },
               }}
             >
@@ -288,17 +214,16 @@ const HomeSocial = () => {
             fullWidth
             variant="contained"
             sx={{
-              mb: 1, // Margine inferiore per separare i pulsanti
+              mb: 1,
               backgroundColor: "#044c93",
-              color: "white", // Font bianco
+              color: "white",
               '&:hover': {
-                backgroundColor: "#033b73", // Colore più scuro al passaggio del mouse
+                backgroundColor: "#033b73",
               },
             }}
           >
             Messaggi
           </Button>
-          {/* Tasto Notifiche */}
           <Button
             fullWidth
             variant="contained"
@@ -314,12 +239,11 @@ const HomeSocial = () => {
             <NotificationsIcon
               sx={{
                 mr: 1,
-                color: notifications.length > 0 ? "red" : "white", // Cambia colore in base alla presenza di notifiche
+                color: notifications.length > 0 ? "red" : "white",
               }}
             />
             Notifiche
           </Button>
-          {/* Menu delle notifiche */}
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
@@ -482,7 +406,7 @@ const HomeSocial = () => {
 
         {/* Sezione laterale destra: News dal mondo */}
         <Box sx={{ width: "20%", p: 2 }}>
-          <Typography variant="h6" sx={{ fontFamily: 'Arial, sans-serif', fontWeight: 'bold', mb: 2, color: "#044c93" }}>
+          <Typography variant="h6" sx={{ fontFamily: 'Arial, sans-serif', fontWeight: "bold", mb: 2, color: "#044c93" }}>
             News dal mondo
           </Typography>
           {news.map((article, index) => (

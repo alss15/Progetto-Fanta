@@ -64,41 +64,7 @@ const Profilo = () => {
         minHeight: "100vh",
       }}
     >
-      {/* Barra superiore */}
-      <AppBar position="static" sx={{ backgroundColor: "#044c93", p: 1 }}>
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <Typography variant="h6" sx={{ fontFamily: 'Arial, sans-serif', fontWeight: "bold", color: "white" }}>
-            FantaSocial
-          </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Typography variant="h6" sx={{ fontFamily: 'Arial, sans-serif', fontWeight: "bold", color: "white" }}>
-              PUNTI 535
-            </Typography>
-            <img
-              src={require("../materials/Moneta.png")}
-              alt="Moneta"
-              style={{
-                height: 30,
-                width: 30,
-                borderRadius: "50%",
-                objectFit: "cover",
-              }}
-            />
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
-            <Link to="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", color: "inherit" }}>
-              <Typography variant="body1" sx={{ mr: 1, fontFamily: 'Arial, sans-serif', fontWeight: "bold", color: "white" }}>
-                {user.firstName} {user.lastName}
-              </Typography>
-              <Avatar
-                alt={`${user.firstName} ${user.lastName}`}
-                src={user.avatar}
-                sx={{ width: 40, height: 40 }}
-              />
-            </Link>
-          </Box>
-        </Toolbar>
-      </AppBar>
+     
 
       {/* Contenuto del profilo */}
       <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 4, px: 2 }}>
