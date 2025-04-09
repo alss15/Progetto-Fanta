@@ -33,17 +33,23 @@ const Login = () => {
   }; 
   return (
     <Container maxWidth="sm">
-      <Paper elevation={3} sx={{ p: 4, borderRadius: 3, mt: 4 }}>
-        <Typography variant="h4" align="center" gutterBottom>
-          Accedi
-        </Typography>
+      <Paper elevation={3} sx={{ p: 3, borderRadius: 3, mt: 0 }}> {/* Rimosso il margine superiore */}
+      <Typography
+                    variant="h4"
+                    sx={{
+                        fontFamily: "Arial, sans-serif",
+                        marginBottom: "10px",
+                        textAlign: "center",
+                    }}
+                >
+                    Accedi
+                </Typography>
         <Box
           component="form"
           onSubmit={handleSubmit}
           sx={{
             display: "flex",
             flexDirection: "column",
-            gap: 2,
           }}
         >
           <TextField
@@ -62,6 +68,7 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             margin="normal"
+            sx={{ marginBottom: 3 }}
           />
           <Button variant="contained" color="primary" size="large" type="submit">
             Accedi

@@ -5,6 +5,7 @@ import logo2 from '../materials/logo ey.png';
 import logo3 from '../materials/logo startup geeks.png';
 import { useAuth } from '../context/AuthContext'; // Importa il contesto AuthContext
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // Icona del profilo
+import '../styles/NavBar.css'; // Importa gli stili CSS per la NavBar
 
 const NavBar = () => {
     const { username, logout } = useAuth(); // Ottieni l'utente autenticato e la funzione di logout dal contesto

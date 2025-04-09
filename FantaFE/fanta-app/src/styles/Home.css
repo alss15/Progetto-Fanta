@@ -1,0 +1,54 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.home-container {
+    display: flex; /* Layout orizzontale */
+    align-items: center;
+    justify-content: space-between;
+    width: 90%; /* Ridotto per lasciare margini */
+    max-width: 1200px; /* Limita la larghezza massima */
+    height: 80%; /* Altezza relativa */
+    font-family: Arial, sans-serif;
+    background-color: rgba(255, 255, 255, 0.8); /* Sfondo bianco semi-trasparente */
+    border-radius: 15px; /* Bordi arrotondati */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombra */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.home-text {
+    flex: 1; /* Testo a sinistra */
+    color: #333;
+    font-weight: bold;
+    padding-right: 20px;
+}
+
+.home-text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.home-text p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.home-image-container {
+    flex: 1; /* Immagine a destra */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-image {
+    background-image: url('../materials/home.jpg'); /* Immagine home.jpg */
+    background-size: cover;
+    background-position: center;
+    width: 75%; /* Larghezza relativa */
+    aspect-ratio: 4 / 3; /* Mantiene il rapporto 4:3 */
+    border-radius: 15px; /* Bordi arrotondati */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombra */
+}

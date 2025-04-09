@@ -9,39 +9,7 @@ import NavBar from './components/NavBar';
 import HomeSocial from './pages/HomeSocial';
 import Profilo from './pages/Profilo';
 import AuthProvider from './context/AuthContext';
-
-const HomePage = () => {
-  const navigate = useNavigate();
-
-  return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <button
-        style={{ margin: '10px', padding: '10px 20px' }}
-        onClick={() => navigate('/login')}
-      >
-        Login
-      </button>
-      <button
-        style={{ margin: '10px', padding: '10px 20px' }}
-        onClick={() => navigate('/admin')}
-      >
-        Admin
-      </button>
-      <button
-        style={{ margin: '10px', padding: '10px 20px' }}
-        onClick={() => navigate('/creator')}
-      >
-        Creator
-      </button>
-      <button
-        style={{ margin: '10px', padding: '10px 20px' }}
-        onClick={() => navigate('/home-social')}
-      >
-        Home Social
-      </button>
-    </div>
-  );
-};
+import HomePage from './pages/HomePage';
 
 function App() {
   return (
