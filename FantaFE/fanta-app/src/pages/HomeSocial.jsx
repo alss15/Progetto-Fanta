@@ -166,6 +166,8 @@ const HomeSocial = () => {
     setSnackbarOpen(false);
   };
 
+  console.log(posts);
+
   return (
     <div
       style={{
@@ -364,7 +366,7 @@ const HomeSocial = () => {
                   <Typography variant="body1" sx={{ mb: 2 }}>
                     {post.content}
                   </Typography>
-                  {post.image && (
+                  {post.image ? (
                     <CardMedia
                       component="img"
                       sx={{
@@ -376,6 +378,19 @@ const HomeSocial = () => {
                       }}
                       image={post.image}
                       alt="Post image"
+                    />
+                  ) : (
+                    <CardMedia
+                      component="img"
+                      sx={{
+                        borderRadius: 2,
+                        width: "100%",
+                        height: "auto",
+                        aspectRatio: "4 / 3",
+                        objectFit: "cover",
+                      }}
+                      image={NoProfilePicture} // Usa un'immagine di default
+                      alt="Immagine non disponibile"
                     />
                   )}
                   {/* Mi piace */}
