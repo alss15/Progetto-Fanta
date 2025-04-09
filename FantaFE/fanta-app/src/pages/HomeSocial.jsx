@@ -369,10 +369,11 @@ const HomeSocial = () => {
                       component="img"
                       sx={{
                         borderRadius: 2,
-                        width: "100%",
+                        width: "50%",
                         height: "auto",
                         aspectRatio: "4 / 3",
                         objectFit: "cover",
+                        alignSelf: "center",
                       }}
                       image={post.image}
                       alt="Post image"

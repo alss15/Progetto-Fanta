@@ -1,5 +1,16 @@
 import React, { useState } from "react";
-import { AppBar, Toolbar, Typography, Box, Card, CardContent, CardMedia, Avatar, Button, IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  Container,
+  Paper,
+  Typography,
+  Box,
+  Avatar,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  CardMedia,
+} from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Link } from "react-router-dom";
@@ -44,15 +55,13 @@ const Profilo = () => {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  // Funzione per aprire il menu delle notifiche
   const handleNotificationsClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  // Funzione per chiudere il menu delle notifiche
   const handleNotificationsClose = () => {
     setAnchorEl(null);
-    setNotifications([]); // Svuota le notifiche dopo averle lette
+    setNotifications([]);
   };
 
   return (
@@ -64,117 +73,123 @@ const Profilo = () => {
         minHeight: "100vh",
       }}
     >
-     
-
-      {/* Contenuto del profilo */}
-      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", px: 2 }}>
-        {/* Informazioni del profilo */}
-        <Box sx={{ display: "flex", alignItems: "center", mb: 4, width: "60%" }}>
-          <Avatar
-            alt={`${user.firstName} ${user.lastName}`}
-            src={user.avatar}
-            sx={{ width: 80, height: 80, mr: 3 }}
-          />
-          <Box>
-            <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-              {user.firstName} {user.lastName}
-            </Typography>
-            <Typography variant="body1" sx={{ color: "gray" }}>
-              {user.bio}
-            </Typography>
-          </Box>
-        </Box>
-
-        {/* Sezione notifiche */}
-        <Box sx={{ mb: 4, width: "20%", display: "flex", flexDirection: "column", alignItems: "flex-start" }}> {/* Allinea a sinistra */}
-          {/* Tasto Home Social */}
-          <Link to="/Home-Social" style={{ textDecoration: "none", width: "100%" }}>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "#044c93",
-                color: "white",
-                mb: 2,
-                width: "100%", // Mantiene la larghezza del contenitore
-                '&:hover': {
-                  backgroundColor: "#033b73",
-                },
-              }}
-            >
-              Home Social
-            </Button>
-          </Link>
-
-          {/* Tasto Notifiche */}
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#044c93",
-              color: "white",
-              mb: 2,
-              width: "100%", // Mantiene la larghezza del contenitore
-            }}
-            onClick={handleNotificationsClick}
-          >
-            <NotificationsIcon
-              sx={{
-                mr: 1,
-                color: notifications.length > 0 ? "red" : "white",
-              }}
-            />
-            Notifiche
-          </Button>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleNotificationsClose}
-            sx={{ mt: 1 }}
-          >
-            {notifications.length > 0 ? (
-              notifications.map((notification) => (
-                <MenuItem key={notification.id}>{notification.message}</MenuItem>
-              ))
-            ) : (
-              <MenuItem>Nessuna notifica</MenuItem>
-            )}
-          </Menu>
-        </Box>
-
-        {/* Sezione "I miei post" */}
-        <Box sx={{ mb: 4, width: "60%" }}>
-          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
-            I miei post
-          </Typography>
-          {posts.map((post) => (
-            <Card key={post.id} sx={{ mb: 2, border: "1px solid #044c93" }}>
-              <CardContent>
-                <Typography variant="body1" sx={{ mb: 2 }}>
-                  {post.content}
+      <Box align='center' sx={{ display: "flex", flexDirection: "column", alignItems: "center", px: 2 }}>
+        {/* Contenitore informazioni profilo */}
+        <Container>
+          <Paper elevation={3} align='left' sx={{ padding: 3, mt: 4, mb: 4, width: "30%", borderRadius: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 4, justifyContent: "center" }}>
+              <Avatar
+                alt={`${user.firstName} ${user.lastName}`}
+                src={user.avatar}
+                sx={{ width: 80, height: 80, mr: 3 }}
+              />
+              <Box>
+                <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+                  {user.firstName} {user.lastName}
                 </Typography>
-                {post.image && (
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      borderRadius: 2,
-                      width: "100%",
-                      height: "auto",
-                      mb: 2,
-                    }}
-                    image={post.image}
-                    alt="Post image"
-                  />
+                <Typography variant="body1" sx={{ color: "gray" }}>
+                  {user.bio}
+                </Typography>
+              </Box>
+            </Box>
+
+            {/* Pulsanti Home Social e Notifiche */}
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <Link to="/Home-Social" style={{ textDecoration: "none" }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#044c93",
+                    color: "white",
+                    '&:hover': { backgroundColor: "#033b73" },
+                  }}
+                  fullWidth
+                >
+                  Home Social
+                </Button>
+              </Link>
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "#044c93",
+                  color: "white",
+                  '&:hover': { backgroundColor: "#033b73" },
+                }}
+                onClick={handleNotificationsClick}
+                fullWidth
+              >
+                <NotificationsIcon
+                  sx={{
+                    mr: 1,
+                    color: notifications.length > 0 ? "red" : "white",
+                  }}
+                />
+                Notifiche
+              </Button>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleNotificationsClose}
+                sx={{ mt: 1 }}
+              >
+                {notifications.length > 0 ? (
+                  notifications.map((notification) => (
+                    <MenuItem key={notification.id}>{notification.message}</MenuItem>
+                  ))
+                ) : (
+                  <MenuItem>Nessuna notifica</MenuItem>
                 )}
-                <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                  <IconButton sx={{ color: "#044c93" }}>
-                    <ThumbUpIcon />
-                  </IconButton>
-                  <Typography variant="body2">{post.likes.length} Mi piace</Typography>
-                </Box>
-              </CardContent>
-            </Card>
-          ))}
-        </Box>
+              </Menu>
+            </Box>
+          </Paper>
+        </Container>
+      
+
+      {/* Sezione "I miei post" */}
+      <Box align="center" sx={{ mb: 4, width: "60%" }}>
+        <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
+          I miei post
+        </Typography>
+        {posts.map((post) => (
+          <Paper
+            key={post.id}
+            elevation={3}
+            sx={{
+              padding: 3,
+              mb: 4,
+              borderRadius: 2,
+              border: "1px solid #044c93",
+            }}
+          >
+            <Typography variant="body1" sx={{ mb: 2 }}>
+              {post.content}
+            </Typography>
+            {post.image && (
+              <CardMedia
+                component="img"
+                sx={{
+                  borderRadius: 2,
+                  width: "75%",
+                  height: "auto",
+                  aspectRatio: "4 / 3",
+                  mb: 2,
+                }}
+                image={post.image}
+                alt="Post image"
+              />
+            )}
+            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+              <IconButton sx={{ color: "#044c93" }}>
+                <ThumbUpIcon />
+              </IconButton>
+              <Typography variant="body2">{post.likes.length} Mi piace</Typography>
+            </Box>
+          </Paper>
+        ))}
       </Box>
+
+      </Box>
+
     </div>
   );
 };
