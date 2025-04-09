@@ -25,9 +25,9 @@ const AuthProvider =({ children }) => {
     
     };
     
-    const register = async (username, password, role) => {
+    const register = async (nome, cognome, username, password, role) => {
         try {
-            const {token} = await registerUser (username, password, role);
+            const {token} = await registerUser (nome, cognome, username, password, role);
             localStorage.setItem("token", token);
             setAuthToken(token);
             setAuthTokenState(token);

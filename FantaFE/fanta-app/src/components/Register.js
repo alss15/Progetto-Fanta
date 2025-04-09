@@ -15,6 +15,8 @@ const RegisterForm = () => {
     const { register } = useAuth();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
+        nome: "",
+        cognome: "",
         username: "",
         password: "",
         role: "utente",
@@ -64,9 +66,9 @@ const RegisterForm = () => {
 
         setLoading(true);
         try {
-            await register(formData.username, formData.password, formData.role);
+            await register(formData.nome, formData.cognome, formData.username, formData.password, formData.role);
             alert ("Registrazione completata con successo!");
-            navigate("/HomeSocial");
+            navigate("/home-social");
         } catch (error) {
             alert("Errore durante la registrazione");
         } finally {
@@ -134,6 +136,36 @@ const RegisterForm = () => {
                         L'username deve contenere almeno 5 caratteri e solo lettere o numeri.
                     </Typography>
                 </div>
+                
+                <TextField
+    label="Nome"
+    type="nome"
+    name="nome"
+    value={formData.nome}
+    onChange={handleChange}
+    required
+    margin="normal"
+    
+    sx={{
+        backgroundColor: "white",
+        width: "100%",
+    }}
+     />
+     <TextField
+    label="Cognome"
+    type="cognome"
+    name="cognome"
+    value={formData.cognome}
+    onChange={handleChange}
+    required
+    margin="normal"
+    sx={{
+        backgroundColor: "white",
+        width: "100%",
+    }}
+/>
+
+
                 <div>
                     <TextField
                         label="Password"

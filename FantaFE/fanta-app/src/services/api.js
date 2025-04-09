@@ -6,9 +6,9 @@ const api = axios.create({
 
 /* AUTH Endpoints */
 // Registrazione
-export const registerUser = async (nome, cognome, username, password) => {
+export const registerUser = async (nome, cognome, username, password, role) => {
     
-    const response = await api.post('/auth/register', {nome, cognome, username, password});
+    const response = await api.post('/auth/register', {nome, cognome, username, password, role});
     return response.data;
 };
  // Login
