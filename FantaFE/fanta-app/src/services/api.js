@@ -6,9 +6,9 @@ const api = axios.create({
 
 /* AUTH Endpoints */
 // Registrazione
-export const registerUser = async (nome, cognome, username, password, role) => {
+export const registerUser = async (nome, cognome, username, password) => {
     
-    const response = await api.post('/auth/register', {nome, cognome, username, password, role});
+    const response = await api.post('/auth/register', {nome, cognome, username, password});
     return response.data;
 };
  // Login
@@ -17,7 +17,8 @@ export const loginUser = async (username, password) => {
         username,
         password
          });
-    return response.data; 
+        console.log(response)
+    return response; 
    };
 
    // Imposta il token nell'header Authorization

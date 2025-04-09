@@ -11,7 +11,7 @@ const AuthProvider =({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            authToken(token);
+           
             setAuthToken(token);
             setAuthTokenState(token);
         }

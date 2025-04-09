@@ -10,26 +10,22 @@ import {
   Paper,
 } from "@mui/material";
 
-
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
   const { login } = useAuth();
+  const navigate = useNavigate();
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await login (username, password);
-      const token = response.token; // Assumendo che il backend restituisca un campo "token"
-      if (token) {
-        localStorage.setItem("authToken", token); // Salva il token in localStorage
-        console.log("Login effettuato con successo:", response);
-        navigate("/HomeSocial"); // Reindirizza alla home
-      } else {
-        alert("Errore: Token non ricevuto dal backend.");
-      }
-    } catch (error) {
+      await login (username, password);
+      console.log("Login effettuato con successo")
+
+      navigate("/home-social");
+      } 
+    catch (error) {
       console.error("Errore durante il login:", error);
       alert("Errore durante il login. Controlla le credenziali e riprova.");
     }
