@@ -274,6 +274,19 @@ const HomeSocial = () => {
           {/* Post input */}
           <Card sx={{ mb: 2, borderColor: "#044c93", borderWidth: 1, borderStyle: "solid" }}>
             <CardContent>
+              {/* Informazioni sull'utente */}
+              <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                <Avatar
+                  alt={`${user.firstName} ${user.lastName}`}
+                  src={NoProfilePicture} // Usa l'immagine di profilo o quella di default
+                  sx={{ width: 50, height: 50, mr: 2 }}
+                />
+                <Typography variant="h6" sx={{ fontWeight: "bold", color: "#044c93" }}>
+                  {`${user.firstName} ${user.lastName}`}
+                </Typography>
+              </Box>
+
+              {/* Campo per pubblicare la sfida */}
               <TextField
                 placeholder="Pubblica qui la tua sfida!"
                 multiline

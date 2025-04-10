@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Link } from "react-router-dom";
 
 const Profilo = () => {
@@ -29,13 +30,14 @@ const Profilo = () => {
       id: 1,
       creatorId: 1,
       creatorName: "Mario Rossi",
-      content: "Il mio primo post sulla sostenibilità!",
+      content: "Sfida settimanale completata! Ecco la mia pianta!",
       image: require("../materials/Pianta.jpg"),
       likes: [2, 3],
       comments: [
         { userId: 2, userName: "Laura Bianchi", text: "Bellissimo post!" },
         { userId: 3, userName: "Pippo Rossi", text: "Concordo!" },
       ],
+      points: 50,
     },
     {
       id: 2,
@@ -45,6 +47,7 @@ const Profilo = () => {
       image: require("../materials/Dolce.jpg"),
       likes: [2],
       comments: [],
+      points: 20,
     },
   ]);
 
@@ -63,6 +66,9 @@ const Profilo = () => {
     setAnchorEl(null);
     setNotifications([]);
   };
+
+  {/* Calcolo dei punti totali */}
+  const totalPoints = posts.reduce((sum, post) => sum + (post.points || 0), 0);
 
   return (
     <div
@@ -145,11 +151,64 @@ const Profilo = () => {
         </Container>
       
 
-      {/* Sezione "I miei post" */}
+      
+
+      {/* Contenitore principale */}
       <Box align="center" sx={{ mb: 4, width: "60%" }}>
-        <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
-          I miei post
-        </Typography>
+        {/* Contatore delle FantaMonete */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#f0f0f0",
+          
+            color: "#044c93", 
+            padding: "10px 20px", 
+            borderRadius: "8px", 
+            textAlign: "center", 
+            mb: 3, 
+            fontWeight: "bold", 
+            width: "fit-content", 
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 5)", 
+          }}
+        >
+          {/* Icona della moneta */}
+          <img
+            src={require("../materials/Moneta.png")}
+            alt="FantaMonete"
+            style={{
+              width: "30px", // Larghezza dell'icona
+              height: "30px", // Altezza dell'icona
+              marginRight: "10px", // Spaziatura tra l'icona e il testo
+              border: "2px solid white", // Contorno bianco
+              borderRadius: "50%", // Per rendere il contorno circolare
+              backgroundColor: "white", // Sfondo bianco dietro l'immagine
+            }}
+          />
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            FantaMonete: {totalPoints}
+          </Typography>
+        </Box>
+
+        {/* Titolo "Sfide Effettuate" */}
+        <Box
+          sx={{
+            backgroundColor: "#044c93", 
+            color: "white", 
+            padding: "10px 20px", 
+            borderRadius: "8px", 
+            textAlign: "center", 
+            mb: 3, 
+            BoxShadow: "0px 4px 8px rgba(0, 0, 0, 5)", 
+          }}
+        >
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            Sfide Effettuate
+          </Typography>
+        </Box>
+
+        {/* Lista dei post */}
         {posts.map((post) => (
           <Paper
             key={post.id}
@@ -161,23 +220,42 @@ const Profilo = () => {
               border: "1px solid #044c93",
             }}
           >
-            <Typography variant="body1" sx={{ mb: 2 }}>
+            {/* Tipo di sfida e punti guadagnati con check verde */}
+            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+              <Typography variant="body2" sx={{ fontWeight: "bold", color: "#044c93" }}>
+                {post.creatorName} - {post.content.includes("settimanale") ? "SFIDA SETTIMANALE" : "SFIDA GIORNALIERA"}
+              </Typography>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <Typography variant="body2" sx={{ fontWeight: "bold", color: "#044c93" }}>
+                  +{post.points || 0} FantaMonete
+                </Typography>
+                <CheckCircleIcon sx={{ color: "green" }} />
+              </Box>
+            </Box>
+
+            {/* Contenuto del post */}
+            <Typography variant="body1" sx={{ mb: 2, textAlign: "justify" }}>
               {post.content}
             </Typography>
+
+            {/* Immagine del post */}
             {post.image && (
               <CardMedia
                 component="img"
                 sx={{
                   borderRadius: 2,
-                  width: "75%",
-                  height: "auto",
-                  aspectRatio: "4 / 3",
+                  width: "100%", // Larghezza massima
+                  height: "auto", // Altezza automatica
+                  aspectRatio: "4 / 3", // Mantiene il rapporto 4:3
                   mb: 2,
+                  objectFit: "cover", // Assicura che l'immagine riempia l'area
                 }}
                 image={post.image}
                 alt="Post image"
               />
             )}
+
+            {/* Sezione "Mi piace" */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
               <IconButton sx={{ color: "#044c93" }}>
                 <ThumbUpIcon />
