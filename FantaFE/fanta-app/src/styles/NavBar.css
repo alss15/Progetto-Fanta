@@ -9,7 +9,7 @@
   }
   
   .navbar-left {
-    display: flex; /* Disposizione in orizzontale per gli elementi a sinistra */
+    display: center; /* Disposizione in orizzontale per gli elementi a sinistra */
     align-items: center; /* Allinea verticalmente gli elementi */
   }
   

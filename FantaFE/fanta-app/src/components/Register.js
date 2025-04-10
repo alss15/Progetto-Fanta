@@ -194,7 +194,11 @@ const Register = () => {
               Creator
             </ToggleButton>
           </div>
-          <Button variant="contained" color="primary" size="large" type="submit">
+          <Button variant="contained" color="primary" size="large" type="submit" sx={{ 
+                backgroundColor: "#044c93", 
+                color: "#ffffff", 
+                fontWeight: "bold" // Rende il testo in grassetto
+            }}>
             Registrati
           </Button>
         </Box>

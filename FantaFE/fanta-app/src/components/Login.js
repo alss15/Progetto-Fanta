@@ -70,7 +70,16 @@ const Login = () => {
             margin="normal"
             sx={{ marginBottom: 3 }}
           />
-          <Button variant="contained" color="primary" size="large" type="submit">
+          <Button 
+            variant="contained" 
+            size="large" 
+            type="submit"
+            sx={{ 
+                backgroundColor: "#044c93", 
+                color: "#ffffff", 
+                fontWeight: "bold" // Rende il testo in grassetto
+            }}
+          >
             Accedi
           </Button>
         </Box>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import AdminPage from './pages/AdminPage';
 import CreatorPage from './pages/CreatorPage';
@@ -14,18 +14,18 @@ import HomePage from './pages/HomePage';
 function App() {
   return (
     <AuthProvider>
-    <Router>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/creator" element={<CreatorPage />} />
-        <Route path="/RegisterPage" element={<RegisterPage />} />
-        <Route path="/home-social" element={<HomeSocial />} />
-        <Route path="/profilo" element={<Profilo />} />
-      </Routes>
-    </Router>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/creator" element={<CreatorPage />} />
+          <Route path="/registrati" element={<RegisterPage />} />
+          <Route path="/home-social" element={<HomeSocial />} />
+          <Route path="/profilo" element={<Profilo />} />
+        </Routes>
+      </Router>
     </AuthProvider>
   );
 }
