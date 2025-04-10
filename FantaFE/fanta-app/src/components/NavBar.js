@@ -5,9 +5,12 @@ import logo2 from '../materials/logo ey.png';
 import logo3 from '../materials/logo startup geeks.png';
 import '../styles/NavBar.css'; // Importa gli stili CSS per la NavBar
 
-/* commento di prova */
-
 const NavBar = () => {
+    // Simula il ruolo dell'utente (può essere 'admin', 'creator', ecc.)
+    const userRole = 'admin'; // Cambia dinamicamente in base al contesto
+
+    // Determina il percorso del link "Profilo" in base al ruolo
+    const profilePath = userRole === 'admin' ? '/admin' : userRole === 'creator' ? '/creator' : '/profilo';
 
     return (
         <nav className="navbar">
@@ -33,6 +36,14 @@ const NavBar = () => {
                             style={{ height: '30px', marginRight: '10px' }} 
                         />
                     </div>
+                </Link>
+            </div>
+            <div className="navbar-right">
+                <Link to="/home-social" className="navbar-button" style={{ marginRight: '10px' }}>
+                    Home-Social
+                </Link>
+                <Link to={profilePath} className="navbar-button" style={{ marginRight: '20px' }}>
+                    Profilo
                 </Link>
             </div>
         </nav>

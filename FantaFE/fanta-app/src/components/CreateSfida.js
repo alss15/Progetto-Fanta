@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createSfida } from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import { Container, TextField, Button, Typography, Box, Avatar } from "@mui/material";
 
 
 const CreateSfida = () => {
@@ -14,7 +15,7 @@ const CreateSfida = () => {
     try {
       await createSfida(title, description, data);
       alert("Sfida creata con successo!");
-      navigate('/home-social'); // Oppure dove vuoi portare l’utente
+      navigate('/sfide'); // Oppure dove vuoi portare l’utente
     } catch (error) {
       console.error("Errore nella creazione della sfida:", error);
       alert("Errore durante la creazione. Riprova.");
@@ -51,7 +52,7 @@ const CreateSfida = () => {
             required
           />
         </div>
-        <button type="submit">Crea Sfida</button>
+        <button type="submit" onClick={() => navigate('/sfide')}>Crea Sfida</button>
       </form>
     </div>
   );

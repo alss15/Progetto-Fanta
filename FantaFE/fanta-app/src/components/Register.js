@@ -66,14 +66,20 @@ const Register = () => {
 
     try {
       await register(
-        formData.nome,
-        formData.cognome,
-        formData.username,
-        formData.password,
-        formData.role
+      formData.nome,
+      formData.cognome,
+      formData.username,
+      formData.password,
+      formData.role
       );
       alert("Registrazione completata con successo!");
+      if (formData.role === "admin") {
+      navigate("/admin");
+      } else if (formData.role === "creator") {
+      navigate("/creator");
+      } else {
       navigate("/home-social");
+      }
     } catch (error) {
       alert("Errore durante la registrazione");
     }

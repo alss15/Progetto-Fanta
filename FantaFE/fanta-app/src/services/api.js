@@ -41,15 +41,16 @@ export const getAllSfide = async () => {
 }
 
 export const getSfidaById = async (id) => {
-    const response = await api.get('/sfide', {id});
+    const response = await api.get(`/sfide/${id}`);
     return response.data;
 };
-export const updateSfida = async (id, updatedSfida) => {
-    const response = await api.put('/sfide', {id}, updatedSfida)
-    return response.data;
 
-}
-export const deleteSfida = async (id) => {
-    const response = await api.delete('/sfide', {id})
+export const updateSfida = async (id, updatedSfida) => {
+    const response = await api.put(`/sfide/${id}`, updatedSfida);
     return response.data;
-}
+};
+
+export const deleteSfida = async (id) => {
+    const response = await api.delete(`/sfide/${id}`);
+    return response.data;
+};

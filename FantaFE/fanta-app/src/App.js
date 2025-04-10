@@ -10,28 +10,12 @@ import HomeSocial from './pages/HomeSocial';
 import Profilo from './pages/Profilo';
 import AuthProvider from './context/AuthContext';
 import HomePage from './pages/HomePage';
-import SfidaDetails from './components/SfidaDetails';
-import SfideList from './components/SfideList';
+import ListaSfide from './pages/ListaSfide';
+import DettagliSfida from './pages/SfidaDetails';
 
 function App() {
   return (
     <AuthProvider>
-<<<<<<< HEAD
-    <Router>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/creator" element={<CreatorPage />} />
-        <Route path="/RegisterPage" element={<RegisterPage />} />
-        <Route path="/home-social" element={<HomeSocial />} />
-        <Route path="/profilo" element={<Profilo />} />
-        <Route path="/sfida/:id" element={<SfidaDetails />} />"
-        <Route path="/sfide" element={<SfideList />} />
-      </Routes>
-    </Router>
-=======
       <Router>
         <NavBar />
         <Routes>
@@ -42,11 +26,10 @@ function App() {
           <Route path="/registrati" element={<RegisterPage />} />
           <Route path="/home-social" element={<HomeSocial />} />
           <Route path="/profilo" element={<Profilo />} />
-          <Route path="/sfida/:id" element={<SfidaDetails />} />"
-          <Route path="/sfide" element={<SfideList />} />
+          <Route path="/sfida/:id" element={<DettagliSfida />} />"
+          <Route path="/sfide" element={<ListaSfide />} />
         </Routes>
       </Router>
->>>>>>> 817eaa518c52babcda18f1792249fc66e76e8e23
     </AuthProvider>
   );
 }

@@ -44,31 +44,6 @@
     
   }
   
-  .login-button {
-    background-color: #ffffff; /* Colore di sfondo del pulsante di login */
-    color: #044c93; /* Colore del testo del pulsante di login */
-    border: none; /* Rimuove il bordo */
-    padding: 10px 20px; /* Padding interno del pulsante */
-    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
-    border-radius: 5px; /* Angoli arrotondati */
-    font-size: 16px; /* Dimensione del testo */
-    font-weight: bold; /* Grassetto */
-    text-decoration: none; /* Rimuove la sottolineatura */
-    margin-right: 20px; /* Aggiunto margine destro per distanziare dalla fine della navbar */
-  }
-  
-  .registrati-button {
-    background-color: #ffd41f; /* Colore di sfondo del pulsante di login */
-    color: #044c93; /* Colore del testo del pulsante di login */
-    border: none; /* Rimuove il bordo */
-    padding: 10px 20px; /* Padding interno del pulsante */
-    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
-    border-radius: 5px; /* Angoli arrotondati */
-    font-size: 16px; /* Dimensione del testo */
-    font-weight: bold; /* Grassetto */
-    text-decoration: none; /* Rimuove la sottolineatura */
-    margin-right: 20px; /* Aggiunto margine destro per distanziare dalla fine della navbar */
-  }
   
   .navbar-title {
     font-size: 24px; /* Dimensione del testo */
@@ -85,3 +60,15 @@
     justify-content: center; /* Centra orizzontalmente */
   }
   
+  .navbar-button {
+    background-color: #ffd41f; /* Colore di sfondo del pulsante */
+    color: #044c93; /* Colore del testo del pulsante */
+    border: none; /* Rimuove il bordo */
+    padding: 10px 20px; /* Padding interno del pulsante */
+    border-radius: 5px; /* Angoli arrotondati */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    font-size: 16px; /* Dimensione del testo */
+    font-weight: bold; /* Grassetto */
+    text-transform: uppercase; /* Trasforma il testo in maiuscolo */
+    
+  }
