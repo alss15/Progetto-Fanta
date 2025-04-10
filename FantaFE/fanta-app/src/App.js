@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import AdminPage from './pages/AdminPage';
 import CreatorPage from './pages/CreatorPage';
@@ -16,6 +16,7 @@ import SfideList from './components/SfideList';
 function App() {
   return (
     <AuthProvider>
+<<<<<<< HEAD
     <Router>
       <NavBar />
       <Routes>
@@ -30,6 +31,20 @@ function App() {
         <Route path="/sfide" element={<SfideList />} />
       </Routes>
     </Router>
+=======
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/creator" element={<CreatorPage />} />
+          <Route path="/registrati" element={<RegisterPage />} />
+          <Route path="/home-social" element={<HomeSocial />} />
+          <Route path="/profilo" element={<Profilo />} />
+        </Routes>
+      </Router>
+>>>>>>> 817eaa518c52babcda18f1792249fc66e76e8e23
     </AuthProvider>
   );
 }
