@@ -24,6 +24,8 @@ function App() {
           <Route path="/registrati" element={<RegisterPage />} />
           <Route path="/home-social" element={<HomeSocial />} />
           <Route path="/profilo" element={<Profilo />} />
+          <Route path="/sfida/:id" element={<SfidaDetails />} />"
+          <Route path="/sfide" element={<SfideList />} />
         </Routes>
       </Router>
     </AuthProvider>

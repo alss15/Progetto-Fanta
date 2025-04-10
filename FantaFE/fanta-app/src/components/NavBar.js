@@ -5,6 +5,8 @@ import logo2 from '../materials/logo ey.png';
 import logo3 from '../materials/logo startup geeks.png';
 import '../styles/NavBar.css'; // Importa gli stili CSS per la NavBar
 
+/* commento di prova */
+
 const NavBar = () => {
 
     return (

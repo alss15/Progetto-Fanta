@@ -11,6 +11,8 @@ import {
   Paper,
 } from "@mui/material";
 
+/* commento di prova */
+
 const Register = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
