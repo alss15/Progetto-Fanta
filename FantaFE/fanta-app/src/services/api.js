@@ -29,28 +29,43 @@ export const loginUser = async (username, password) => {
     delete api.defaults.headers.common['Authorization'];
     }
    };
+
+   export const getAllUsers = async () => {
+    const response = await api.get("/users");
+    return response.data;
+   }
+
+  export const getUserById = async (id) => {
+    const response = await api.get(`/users/${id}`);
+    return response.data;
+  }
+
+    export const getUserByRole = async (role) => {
+          const response = await api.get(`/users/role/${role}`);
+          return response.data; 
+    };
    
  export const createSfida = async (title, description, data) => {
-    const response = await api.post('/sfide', {title, description, data});
+    const response = await api.post("/sfida", {title, description, data});
     return response.data;
    };
 
 export const getAllSfide = async () => {
-    const response = await api.get('/sfide',);
+    const response = await api.get("/sfida");
     return response.data;
 }
 
 export const getSfidaById = async (id) => {
-    const response = await api.get(`/sfide/${id}`);
+    const response = await api.get(`/sfida/${id}`);
     return response.data;
 };
 
 export const updateSfida = async (id, updatedSfida) => {
-    const response = await api.put(`/sfide/${id}`, updatedSfida);
+    const response = await api.put(`/sfida/${id}`, updatedSfida);
     return response.data;
 };
 
 export const deleteSfida = async (id) => {
-    const response = await api.delete(`/sfide/${id}`);
+    const response = await api.delete(`/sfida/${id}`);
     return response.data;
 };
