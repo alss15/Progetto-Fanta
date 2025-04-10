@@ -10,6 +10,8 @@ import HomeSocial from './pages/HomeSocial';
 import Profilo from './pages/Profilo';
 import AuthProvider from './context/AuthContext';
 import HomePage from './pages/HomePage';
+import SfidaDetails from './components/SfidaDetails';
+import SfideList from './components/SfideList';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
         <Route path="/RegisterPage" element={<RegisterPage />} />
         <Route path="/home-social" element={<HomeSocial />} />
         <Route path="/profilo" element={<Profilo />} />
+        <Route path="/sfida/:id" element={<SfidaDetails />} />"
+        <Route path="/sfide" element={<SfideList />} />
       </Routes>
     </Router>
     </AuthProvider>

@@ -44,8 +44,8 @@ export const getSfidaById = async (id) => {
     const response = await api.get('/sfide', {id});
     return response.data;
 };
-export const updateSfida = async (id) => {
-    const response = await api.put('/sfide', {id})
+export const updateSfida = async (id, updatedSfida) => {
+    const response = await api.put('/sfide', {id}, updatedSfida)
     return response.data;
 
 }
