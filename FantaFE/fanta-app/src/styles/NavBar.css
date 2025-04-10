@@ -1,0 +1,74 @@
+.navbar {
+    background-color: #044c93; /* Colore di sfondo della navbar */
+    color: white; /* Colore del testo della navbar */
+    padding: 10px; /* Padding interno della navbar */
+    display: flex; /* Disposizione in orizzontale */
+    align-items: center; /* Allinea verticalmente gli elementi */
+    justify-content: space-between; /* Spaziatura tra gli elementi */
+    width: 100%; /* Larghezza al 100% */
+  }
+  
+  /* commento di prova */
+  
+  .navbar-left {
+    display: center; /* Disposizione in orizzontale per gli elementi a sinistra */
+    align-items: center; /* Allinea verticalmente gli elementi */
+  }
+  
+  .navbar-center {
+    display: flex; /* Disposizione in orizzontale per gli elementi a sinistra */
+    align-items: center; /* Allinea verticalmente gli elementi */
+    justify-content: center; /* Centra orizzontalmente */
+    
+  }
+  
+  .navbar-right {
+    display: flex; /* Disposizione in orizzontale per gli elementi a destra */
+    align-items: center; /* Allinea verticalmente gli elementi */
+  }
+  
+  .navbar-links {
+    display: flex; /* Disposizione in orizzontale per i link */
+    list-style: none; /* Rimuove i punti elenco */
+    margin: 0; /* Rimuove il margine */
+    padding: 0; /* Rimuove il padding */
+  }
+  
+  .navbar-links li {
+    margin: 0 15px; /* Spaziatura tra i link */
+  }
+  
+  .navbar-logo {
+    height: 40px; /* Altezza del logo */
+    margin-left: 10px; /* Margine sinistro per distanziare dal bordo */
+    
+  }
+  
+  
+  .navbar-title {
+    font-size: 24px; /* Dimensione del testo */
+    font-weight: bold; /* Grassetto */
+    color: #ffd41f; /* Colore del testo */
+    text-transform: uppercase; /* Trasforma il testo in maiuscolo */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    font-family: 'Arial', sans-serif; /* Font personalizzato */
+  }
+  
+  .navbar-logos {
+    display: flex; /* Disposizione in orizzontale per i loghi */
+    align-items: center; /* Allinea verticalmente gli elementi */
+    justify-content: center; /* Centra orizzontalmente */
+  }
+  
+  .navbar-button {
+    background-color: #ffd41f; /* Colore di sfondo del pulsante */
+    color: #044c93; /* Colore del testo del pulsante */
+    border: none; /* Rimuove il bordo */
+    padding: 10px 20px; /* Padding interno del pulsante */
+    border-radius: 5px; /* Angoli arrotondati */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    font-size: 16px; /* Dimensione del testo */
+    font-weight: bold; /* Grassetto */
+    text-transform: uppercase; /* Trasforma il testo in maiuscolo */
+    
+  }

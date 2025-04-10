@@ -3,12 +3,18 @@ import { Link } from 'react-router-dom';
 import logo1 from '../materials/logo eni-joule.png';
 import logo2 from '../materials/logo ey.png';
 import logo3 from '../materials/logo startup geeks.png';
+import '../styles/NavBar.css'; // Importa gli stili CSS per la NavBar
 
 const NavBar = () => {
+    // Simula il ruolo dell'utente (può essere 'admin', 'creator', ecc.)
+    const userRole = 'admin'; // Cambia dinamicamente in base al contesto
+
+    // Determina il percorso del link "Profilo" in base al ruolo
+    const profilePath = userRole === 'admin' ? '/admin' : userRole === 'creator' ? '/creator' : '/profilo';
+
     return (
         <nav className="navbar">
-            <div className="navbar-left">
-                {/* Aggiungi un container per tutti e 3 i loghi */}
+            <div className="navbar-center">
                 <Link to="/">
                     <div className="navbar-logos">
                         <img 
@@ -32,14 +38,13 @@ const NavBar = () => {
                     </div>
                 </Link>
             </div>
-            
             <div className="navbar-right">
-                <button className="login-button">
-                    <Link to="/login">Login</Link>
-                </button>
-                <button className="registrati-button">
-                    <Link to="/RegisterPage">Registrati</Link>
-                </button>
+                <Link to="/home-social" className="navbar-button" style={{ marginRight: '10px' }}>
+                    Home-Social
+                </Link>
+                <Link to={profilePath} className="navbar-button" style={{ marginRight: '20px' }}>
+                    Profilo
+                </Link>
             </div>
         </nav>
     );

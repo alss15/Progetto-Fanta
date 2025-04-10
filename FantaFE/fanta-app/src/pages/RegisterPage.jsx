@@ -1,19 +1,11 @@
 import React from "react";
 import "../App.css";
-import Register from "../components/Register";
-import {
-  Container,
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Paper,
-} from "@mui/material";
+import RegisterForm from "../components/Register.js";
 
 const RegisterPage = () => {
   return (
     <div className="sfondoimmaginegialla" > {/* Usa la classe sfondo */}
-      <Register/>
+      <RegisterForm/>
     </div>
   );
 };
