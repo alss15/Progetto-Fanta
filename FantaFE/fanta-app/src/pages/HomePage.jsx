@@ -1,15 +1,13 @@
-import React, { use } from 'react';
-import { Link } from 'react-router-dom';
-import '../styles/Home.css';
-import { Container, Paper, Box, Typography, Button, Grid } from '@mui/material';
+import React, { useState } from 'react';
+import { Container, Paper, Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions, CardMedia } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
-
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
-  const { isLoggedIn, logout } = useAuth();
+  const [openDialog, setOpenDialog] = useState(null);
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -18,16 +16,22 @@ const HomePage = () => {
       console.log("Logout effettuato con successo");
       localStorage.removeItem("user"); // Rimuovi l'oggetto utente dal localStorage
       navigate("/");
-      
-
     } catch (error) {
       console.error("Errore durante il logout:", error);
       alert("Errore durante il logout. Controlla le credenziali e riprova.");
     }
   };
 
+  const handleOpenDialog = (type) => {
+    setOpenDialog(type);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(null);
+  };
+
   return (
-    <div className="sfondoimmaginegialla" style={{ minHeight: "100vh", backgroundSize: "cover" }}>
+    <div className="sfondoimmaginegialla">
       <Container maxWidth="lg" sx={{ py: 5 }}>
         {/* Sezione superiore con descrizione e pulsanti */}
         <Paper elevation={3} sx={{ p: 4, borderRadius: 3, mb: 3 }}>
@@ -60,146 +64,94 @@ const HomePage = () => {
           </Typography>
         </Paper>
 
-        {/* Sezione con le sfide */}
-        <Grid container spacing={4} sx={{ justifyContent: "center" }}>
-          {/* Sfida Giornaliera */}
-          <Grid
-            item
-            xs={12}
-            md={4}
+        {/* Box per la sezione "Come funzionano le sfide?" */}
+        <Paper elevation={3} sx={{ p: 4, borderRadius: 3, mb: 3, backgroundColor: '#f9f9f9' }}>
+          <Typography
+            variant="h5"
+            align="center"
             sx={{
-              transition: "transform 0.3s ease-in-out",
-              '&:hover': { transform: "scale(1.05)" },
+              fontWeight: "bold",
+              color: "#044c93",
+              mb: 2,
+              fontFamily: "'Poppins', sans-serif",
             }}
           >
-            <Paper elevation={3} sx={{ p: 3, borderRadius: 3, textAlign: "center" }}>
-              <img
-                src={require("../materials/Pianta.jpg")}
-                alt="Sfida Giornaliera"
-                style={{
-                  width: "80%",
-                  height: "auto",
-                  borderRadius: "8px",
-                  marginBottom: "16px",
-                }}
-              />
-              <Typography
-                variant="h5"
-                sx={{
-                  fontWeight: "bold",
-                  color: "#044c93",
-                  mb: 2,
-                }}
-              >
-                Sfida Giornaliera
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: "#555",
-                  mb: 2,
-                  fontSize: "1rem",
-                  lineHeight: 1.6,
-                }}
-              >
-                Indossa una maglietta verde e guadagna <strong>+10 punti</strong>. 
-                Una piccola sfida per iniziare la giornata con il piede giusto!
-              </Typography>
-            </Paper>
-          </Grid>
+            Come funzionano le sfide?
+          </Typography>
+          <Typography
+            variant="body1"
+            align="center"
+            sx={{
+              color: "#555",
+              mb: 4,
+              fontSize: "1rem",
+              lineHeight: 1.8,
+            }}
+          >
+            Completa in tempo le sfide che l'admin prepara per voi creator. Ogni sfida ha una tempistica e un punteggio personalizzato in base al tempo. Ci sono 3 tempistiche:
+          </Typography>
 
-          {/* Sfida Settimanale */}
-          <Grid
-            item
-            xs={12}
-            md={4}
-            sx={{
-              transition: "transform 0.3s ease-in-out",
-              '&:hover': { transform: "scale(1.05)" },
-            }}
-          >
-            <Paper elevation={3} sx={{ p: 3, borderRadius: 3, textAlign: "center" }}>
-              <img
-                src={require("../materials/Pianta.jpg")}
-                alt="Sfida Settimanale"
-                style={{
-                  width: "80%",
-                  height: "auto",
-                  borderRadius: "8px",
-                  marginBottom: "16px",
-                }}
-              />
-              <Typography
-                variant="h5"
-                sx={{
-                  fontWeight: "bold",
-                  color: "#044c93",
-                  mb: 2,
-                }}
-              >
-                Sfida Settimanale
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: "#555",
-                  mb: 2,
-                  fontSize: "1rem",
-                  lineHeight: 1.6,
-                }}
-              >
-                Porta una pianta in ufficio e curala per tutta la settimana. 
-                Guadagna <strong>+80 punti</strong> e migliora l'ambiente lavorativo!
-              </Typography>
-            </Paper>
-          </Grid>
+          {/* Bottoni per le sfide */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+            <Button variant="contained" color="primary" onClick={() => handleOpenDialog('giornaliera')}>
+              Sfida Giornaliera
+            </Button>
+            <Button variant="contained" color="secondary" onClick={() => handleOpenDialog('settimanale')}>
+              Sfida Settimanale
+            </Button>
+            <Button variant="contained" color="success" onClick={() => handleOpenDialog('mensile')}>
+              Sfida Mensile
+            </Button>
+          </div>
+        </Paper>
 
-          {/* Sfida Mensile */}
-          <Grid
-            item
-            xs={12}
-            md={4}
-            sx={{
-              transition: "transform 0.3s ease-in-out",
-              '&:hover': { transform: "scale(1.05)" },
-            }}
-          >
-            <Paper elevation={3} sx={{ p: 3, borderRadius: 3, textAlign: "center" }}>
-              <img
-                src={require("../materials/Pianta.jpg")}
-                alt="Sfida Mensile"
-                style={{
-                  width: "80%",
-                  height: "auto",
-                  borderRadius: "8px",
-                  marginBottom: "16px",
-                }}
-              />
-              <Typography
-                variant="h5"
-                sx={{
-                  fontWeight: "bold",
-                  color: "#044c93",
-                  mb: 2,
-                }}
-              >
-                Sfida Mensile
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: "#555",
-                  mb: 2,
-                  fontSize: "1rem",
-                  lineHeight: 1.6,
-                }}
-              >
-                Aumenta le vendite del 25% mantenendo le stesse ore di lavoro. 
-                Guadagna <strong>+300 punti</strong> e dimostra il tuo valore!
-              </Typography>
-            </Paper>
-          </Grid>
-        </Grid>
+        {/* Dialog per Sfida Giornaliera */}
+        <Dialog open={openDialog === 'giornaliera'} onClose={handleCloseDialog}>
+          <DialogTitle>Sfida Giornaliera</DialogTitle>
+          <DialogContent>
+            <CardMedia
+              component="img"
+              image={require("../materials/Giornaliera.png")}
+              alt="Sfida Giornaliera"
+              sx={{ borderRadius: 2, width: "100%", height: "auto" }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog} color="primary">Chiudi</Button>
+          </DialogActions>
+        </Dialog>
+
+        {/* Dialog per Sfida Settimanale */}
+        <Dialog open={openDialog === 'settimanale'} onClose={handleCloseDialog}>
+          <DialogTitle>Sfida Settimanale</DialogTitle>
+          <DialogContent>
+            <CardMedia
+              component="img"
+              image={require("../materials/Settimanale.png")}
+              alt="Sfida Settimanale"
+              sx={{ borderRadius: 2, width: "100%", height: "auto" }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog} color="primary">Chiudi</Button>
+          </DialogActions>
+        </Dialog>
+
+        {/* Dialog per Sfida Mensile */}
+        <Dialog open={openDialog === 'mensile'} onClose={handleCloseDialog}>
+          <DialogTitle>Sfida Mensile</DialogTitle>
+          <DialogContent>
+            <CardMedia
+              component="img"
+              image={require("../materials/mensile.png")}
+              alt="Sfida Mensile"
+              sx={{ borderRadius: 2, width: "100%", height: "auto" }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog} color="primary">Chiudi</Button>
+          </DialogActions>
+        </Dialog>
       </Container>
     </div>
   );
