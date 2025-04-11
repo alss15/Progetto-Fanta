@@ -26,7 +26,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start; /* Sposta i pulsanti leggermente a sinistra */
-    margin-left: 20px; /* Margine per spostarli a sinistra */
+    margin-right: 30px; /* Margine per spostarli a sinistra */
   }
   
   .navbar-links {

@@ -45,6 +45,7 @@ const AuthProvider =({ children }) => {
         localStorage.removeItem('token');
         setAuthToken(null);
         setAuthTokenState(null);
+        
     };
 
     const isLoggedIn = !!authToken;
