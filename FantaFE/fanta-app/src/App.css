@@ -61,12 +61,13 @@
   background-position: center; /* Centra l'immagine */
   background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
   min-height: 100vh; /* Altezza minima per coprire l'intera finestra */
-  min-width: 100%; /* Larghezza dinamica */
+  height: auto; /* Altezza dinamica basata sui contenuti */
+  width: 100vw; /* Larghezza minima per coprire l'intera finestra */
   display: flex; /* Per centrare il contenuto */
   align-items: flex-start; /* Allinea gli elementi in alto */
   justify-content: center; /* Centra orizzontalmente */
   box-sizing: border-box; /* Include il padding nelle dimensioni */
-  padding: 50px 20px; /* Padding per il contenitore */
+  padding: 10px 10px; /* Padding per il contenitore */
 }
 
 
