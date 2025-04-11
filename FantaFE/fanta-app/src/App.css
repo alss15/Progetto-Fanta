@@ -56,14 +56,18 @@
 }
 
 .sfondoimmaginegialla {
-  background-image: url('./materials/sfondo-login2.jpg'); /* Corretto lo spazio tra url e parentesi */
-  background-size: cover; /* Assicura che l'immagine copra l'intero sfondo */
-  height: 100vh; /* Imposta l'altezza all'intera finestra */
-  width: 100vw; /* Imposta la larghezza all'intera finestra */
+  background-image: url('./materials/sfondo-login2.jpg'); /* Immagine di sfondo */
+  background-size: cover; /* Copre l'intero contenitore */
+  background-position: center; /* Centra l'immagine */
+  background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
+  min-height: 100vh; /* Altezza minima per coprire l'intera finestra */
+  height: auto; /* Altezza dinamica basata sui contenuti */
+  width: 100vw; /* Larghezza minima per coprire l'intera finestra */
   display: flex; /* Per centrare il contenuto */
   align-items: flex-start; /* Allinea gli elementi in alto */
   justify-content: center; /* Centra orizzontalmente */
-  padding-top: 50px; /* Aggiungi spazio dall'alto */
+  box-sizing: border-box; /* Include il padding nelle dimensioni */
+  padding: 10px 10px; /* Padding per il contenitore */
 }
 
 

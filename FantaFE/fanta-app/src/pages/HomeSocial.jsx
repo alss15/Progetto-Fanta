@@ -28,6 +28,18 @@ const HomeSocial = () => {
   const [newPostImage, setNewPostImage] = useState(null);
   const [posts, setPosts] = useState([
     {
+      id: 3,
+      creatorId: 4,
+      creatorName: "Valerio Rossi",
+      content: "E' stata un'impresa ascoltare Ivan tutte quelle ore, però ne sono uscito vivo.. ahahah! :) ",
+      image: require("../materials/EY.jpg"),
+      avatar: require("../materials/valerio.png"),
+      challengeType: "SFIDA MENSILE - Monitora tutte le lezioni del mese del corso Developer.",
+      likes: [],
+      comments: [],
+      points: 500, // Punti guadagnati
+    },
+    {
       id: 1,
       creatorId: 2,
       creatorName: "Laura Bianchi",
