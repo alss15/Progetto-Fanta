@@ -24,7 +24,7 @@ const Profilo = () => {
     {
       id: 1,
       creatorId: 1,
-      creatorName: "Mario Rossi",
+      creatorName: "Valerio Rossi",
       content: "Sfida settimanale completata! Ecco la mia pianta!",
       image: require("../materials/Pianta.jpg"),
       likes: [2, 3],
@@ -37,7 +37,7 @@ const Profilo = () => {
     {
       id: 2,
       creatorId: 1,
-      creatorName: "Mario Rossi",
+      creatorName: "Valerio Rossi",
       content: "Ho completato la sfida green giornaliera!",
       image: require("../materials/Dolce.jpg"),
       likes: [2],
@@ -62,7 +62,7 @@ const Profilo = () => {
     setNotifications([]);
   };
 
-  {/* Calcolo dei punti totali */}
+  // Calcolo dei punti totali
   const totalPoints = posts.reduce((sum, post) => sum + (post.points || 0), 0);
 
   return (
@@ -74,22 +74,21 @@ const Profilo = () => {
         minHeight: "100vh",
       }}
     >
-      <Box align='center' sx={{ display: "flex", flexDirection: "column", alignItems: "center", px: 2 }}>
-        {/* Contenitore informazioni profilo */}
+      <Box align="center" sx={{ display: "flex", flexDirection: "column", alignItems: "center", px: 2 }}>
         <Container>
-          <Paper elevation={3} align='left' sx={{ padding: 3, mt: 4, mb: 4, width: "30%", borderRadius: 2 }}>
-            <Box sx={{ display: "flex", alignItems: "center", mb: 4, justifyContent: "center" }}>
+          <Paper elevation={3} align="left" sx={{ padding: 3, mt: 4, mb: 4, width: "30%", borderRadius: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
               <Avatar
                 alt={`${user.nome} ${user.cognome}`}
                 src="../materials/Pippo.png"
                 sx={{ width: 80, height: 80, mr: 3 }}
               />
-              <Box>
+              <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
                 <Typography variant="h5" sx={{ fontWeight: "bold" }}>
                   {user.nome} {user.cognome}
                 </Typography>
-                <Typography variant="body1" sx={{ color: "gray" }}>
-                  {user.bio}
+                <Typography variant="body1" sx={{ color: "gray", mt : 1 }}>
+                  Bentornato {user.nome}! Completa le sfide e guadagna FantaMonete!
                 </Typography>
               </Box>
             </Box>
@@ -102,54 +101,34 @@ const Profilo = () => {
                   sx={{
                     backgroundColor: "#044c93",
                     color: "white",
-                    '&:hover': { backgroundColor: "#033b73" },
+                    "&:hover": { backgroundColor: "#033b73" },
+                    fontWeight: "bold",
                   }}
                   fullWidth
                 >
-                  Home Social
+                  Home Fanta-social!
                 </Button>
               </Link>
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: "#044c93",
-                  color: "white",
-                  '&:hover': { backgroundColor: "#033b73" },
-                }}
-                onClick={handleNotificationsClick}
-                fullWidth
-              >
-                <NotificationsIcon
+              <Link to="/sfide" style={{ textDecoration: "none" }}>
+                <Button
+                  fullWidth
+                  variant="contained"
                   sx={{
-                    mr: 1,
-                    color: notifications.length > 0 ? "red" : "white",
+                    mb: 2,
+                    backgroundColor: "#044c93",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "#033b73",
+                    },
                   }}
-                />
-                Notifiche
-              </Button>
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleNotificationsClose}
-                sx={{ mt: 1 }}
-              >
-                {notifications.length > 0 ? (
-                  notifications.map((notification) => (
-                    <MenuItem key={notification.id}>{notification.message}</MenuItem>
-                  ))
-                ) : (
-                  <MenuItem>Nessuna notifica</MenuItem>
-                )}
-              </Menu>
+                >
+                  Sfide in corso
+                </Button>
+              </Link>
             </Box>
           </Paper>
         </Container>
-      
 
-      
-
-      {/* Contenitore principale */}
-      <Box align="center" sx={{ mb: 4, width: "60%" }}>
         {/* Contatore delle FantaMonete */}
         <Box
           sx={{
@@ -157,28 +136,26 @@ const Profilo = () => {
             alignItems: "center",
             justifyContent: "center",
             backgroundColor: "#f0f0f0",
-          
-            color: "#044c93", 
-            padding: "10px 20px", 
-            borderRadius: "8px", 
-            textAlign: "center", 
-            mb: 3, 
-            fontWeight: "bold", 
-            width: "fit-content", 
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 5)", 
+            color: "#044c93",
+            padding: "10px 20px",
+            borderRadius: "8px",
+            textAlign: "center",
+            mb: 3,
+            fontWeight: "bold",
+            width: "fit-content",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 5)",
           }}
         >
-          {/* Icona della moneta */}
           <img
             src={require("../materials/Moneta.png")}
             alt="FantaMonete"
             style={{
-              width: "30px", // Larghezza dell'icona
-              height: "30px", // Altezza dell'icona
-              marginRight: "10px", // Spaziatura tra l'icona e il testo
-              border: "2px solid white", // Contorno bianco
-              borderRadius: "50%", // Per rendere il contorno circolare
-              backgroundColor: "white", // Sfondo bianco dietro l'immagine
+              width: "30px",
+              height: "30px",
+              marginRight: "10px",
+              border: "2px solid white",
+              borderRadius: "50%",
+              backgroundColor: "white",
             }}
           />
           <Typography variant="h6" sx={{ fontWeight: "bold" }}>
@@ -189,13 +166,13 @@ const Profilo = () => {
         {/* Titolo "Sfide Effettuate" */}
         <Box
           sx={{
-            backgroundColor: "#044c93", 
-            color: "white", 
-            padding: "10px 20px", 
-            borderRadius: "8px", 
-            textAlign: "center", 
-            mb: 3, 
-            BoxShadow: "0px 4px 8px rgba(0, 0, 0, 5)", 
+            backgroundColor: "#044c93",
+            color: "white",
+            padding: "10px 20px",
+            borderRadius: "8px",
+            textAlign: "center",
+            mb: 3,
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 5)",
           }}
         >
           <Typography variant="h6" sx={{ fontWeight: "bold" }}>
@@ -204,65 +181,72 @@ const Profilo = () => {
         </Box>
 
         {/* Lista dei post */}
-        {posts.map((post) => (
-          <Paper
-            key={post.id}
-            elevation={3}
-            sx={{
-              padding: 3,
-              mb: 4,
-              borderRadius: 2,
-              border: "1px solid #044c93",
-            }}
-          >
-            {/* Tipo di sfida e punti guadagnati con check verde */}
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-              <Typography variant="body2" sx={{ fontWeight: "bold", color: "#044c93" }}>
-                {post.creatorName} - {post.content.includes("settimanale") ? "SFIDA SETTIMANALE" : "SFIDA GIORNALIERA"}
-              </Typography>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap", // Permette di andare a capo se lo spazio non è sufficiente
+            justifyContent: "center", // Centra i post orizzontalmente
+            gap: 3, // Spaziatura tra i post
+            mt: 3, // Margine superiore
+            mb : 3, // Margine inferiore
+          }}
+        >
+          {posts.map((post) => (
+            <Paper
+              key={post.id}
+              elevation={3}
+              sx={{
+                padding: 3,
+                borderRadius: 2,
+                border: "1px solid #044c93",
+                width: "400px", // Larghezza fissa
+                height: "350px", // Altezza fissa
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between", // Distribuisce il contenuto
+              }}
+            >
+              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
                 <Typography variant="body2" sx={{ fontWeight: "bold", color: "#044c93" }}>
-                  +{post.points || 0} FantaMonete
+                  {post.creatorName} - {post.content.includes("settimanale") ? "SFIDA SETTIMANALE" : "SFIDA GIORNALIERA"}
                 </Typography>
-                <CheckCircleIcon sx={{ color: "green" }} />
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <Typography variant="body2" sx={{ fontWeight: "bold", color: "#044c93" }}>
+                    +{post.points || 0} FantaMonete
+                  </Typography>
+                  <CheckCircleIcon sx={{ color: "green" }} />
+                </Box>
               </Box>
-            </Box>
 
-            {/* Contenuto del post */}
-            <Typography variant="body1" sx={{ mb: 2, textAlign: "justify" }}>
-              {post.content}
-            </Typography>
+              <Typography variant="body1" sx={{ mb: 2, textAlign: "justify" }}>
+                {post.content}
+              </Typography>
 
-            {/* Immagine del post */}
-            {post.image && (
-              <CardMedia
-                component="img"
-                sx={{
-                  borderRadius: 2,
-                  width: "100%", // Larghezza massima
-                  height: "auto", // Altezza automatica
-                  aspectRatio: "4 / 3", // Mantiene il rapporto 4:3
-                  mb: 2,
-                  objectFit: "cover", // Assicura che l'immagine riempia l'area
-                }}
-                image={post.image}
-                alt="Post image"
-              />
-            )}
+              {post.image && (
+                <CardMedia
+                  component="img"
+                  sx={{
+                    borderRadius: 2,
+                    width: "100%",
+                    height: "200px", // Altezza fissa per l'immagine
+                    objectFit: "cover",
+                    mb: 2,
+                  }}
+                  image={post.image}
+                  alt="Post image"
+                />
+              )}
 
-            {/* Sezione "Mi piace" */}
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              <IconButton sx={{ color: "#044c93" }}>
-                <ThumbUpIcon />
-              </IconButton>
-              <Typography variant="body2">{post.likes.length} Mi piace</Typography>
-            </Box>
-          </Paper>
-        ))}
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                <IconButton sx={{ color: "#044c93" }}>
+                  <ThumbUpIcon />
+                </IconButton>
+                <Typography variant="body2">{post.likes.length} Mi piace</Typography>
+              </Box>
+            </Paper>
+          ))}
+        </Box>
       </Box>
-
-      </Box>
-
     </div>
   );
 };
