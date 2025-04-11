@@ -66,6 +66,7 @@
   align-items: flex-start; /* Allinea gli elementi in alto */
   justify-content: center; /* Centra orizzontalmente */
   box-sizing: border-box; /* Include il padding nelle dimensioni */
+  padding: 50px 20px; /* Padding per il contenitore */
 }
 
 
