@@ -30,7 +30,7 @@ const HomePage = () => {
     <div className="sfondoimmaginegialla" style={{ minHeight: "100vh", backgroundSize: "cover" }}>
       <Container maxWidth="lg" sx={{ py: 5 }}>
         {/* Sezione superiore con descrizione e pulsanti */}
-        <Paper elevation={3} sx={{ p: 4, borderRadius: 3, mb: 5 }}>
+        <Paper elevation={3} sx={{ p: 4, borderRadius: 3, mb: 3 }}>
           <Typography
             variant="h3"
             align="center"
@@ -58,55 +58,6 @@ const HomePage = () => {
             Le aziende possono creare sfide personalizzate per i propri dipendenti, assegnare punteggi e stabilire tempistiche. 
             Rendi la tua azienda FANTA-stica con il nostro sistema di gamification!
           </Typography>
-          <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
-          {isLoggedIn ? (
-            
-            <>
-              <Button
-              onClick={handleLogout}
-                variant="contained"
-                sx={{
-                  backgroundColor: "#044c93",
-                  color: "white",
-                  fontWeight: "bold",
-                  '&:hover': { backgroundColor: "#033b73" },
-                }}
-              >
-                Logout
-              </Button>
-            </>
-          ) : (<>
-          
-          <Link to="/login" style={{ textDecoration: "none" }}>
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: "#044c93",
-                  color: "white",
-                  fontWeight: "bold",
-                  '&:hover': { backgroundColor: "#033b73" },
-                }}
-              >
-                Login
-              </Button>
-            </Link>
-            <Link to="/registrati" style={{ textDecoration: "none" }}>
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: "white",
-                  color: "#033b73",
-                  fontWeight: "bold",
-                  '&:hover': { backgroundColor: "#033b73" },
-                }}
-              >
-                Registrati
-              </Button>
-            </Link>
-            
-            </>)}
-            
-          </Box>
         </Paper>
 
         {/* Sezione con le sfide */}
