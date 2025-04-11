@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createSfida } from '../services/api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Container, TextField, Button, Typography, Box, Paper, IconButton, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -45,7 +45,7 @@ const CreateSfida = () => {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 5 }}>
+    <Container maxWidth="sm" sx={{ mt: 0.1 }}>
       <Paper elevation={3} sx={{ padding: 4, borderRadius: 3 }}>
         <Typography
           variant="h4"
@@ -179,6 +179,50 @@ const CreateSfida = () => {
           </Box>
         </form>
       </Paper>
+
+   {/* Bottone per tornare a /sfide */}
+   <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+        <Button
+          component={Link}
+          to="/sfide"
+          variant="contained"
+          sx={{
+            backgroundColor: "#044c93",
+            color: "white",
+            fontWeight: "bold",
+            transition: "transform 0.2s, box-shadow 0.2s",
+            '&:hover': { 
+              backgroundColor: "#033b73",
+              transform: "scale(1.05)",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)"
+            },
+          }}
+        >
+          Torna alle Sfide
+        </Button>
+      </Box>
+
+      {/* Bottone per andare a /home-social */}
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+        <Button
+          component={Link}
+          to="/home-social"
+          variant="contained"
+          sx={{
+            backgroundColor: "#044c93",
+            color: "white",
+            fontWeight: "bold",
+            transition: "transform 0.2s, box-shadow 0.2s",
+            '&:hover': { 
+              backgroundColor: "#033b73",
+              transform: "scale(1.05)",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)"
+            },
+          }}
+        >
+          Vai a Home Social
+        </Button>
+      </Box>
     </Container>
   );
 };

@@ -1,159 +1,91 @@
-import React, { useState, useEffect } from "react";
-import { AppBar, Toolbar, Typography, Box, TextField, Button, Card, CardContent, CardMedia, Avatar, IconButton, Menu, MenuItem, Snackbar, Alert } from "@mui/material";
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import CheckCircleIcon from "@mui/icons-material/CheckCircle"; // Importa l'icona di check verde
+import React, { useState } from "react";
+import {
+  Box,
+  Typography,
+  Avatar,
+  Button,
+  TextField,
+  Card,
+  CardContent,
+  CardMedia,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import { Link } from "react-router-dom";
-import DolceImage from "../materials/Dolce.jpg";
-import PiantaImage from "../materials/Pianta.jpg";
-import NoProfilePicture from "../materials/NoProfilePicture.jpg"; // Importa l'immagine di default
 
 const HomeSocial = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  // Recupera l'utente da localStorage
+  const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+
   const [newComment, setNewComment] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
   const [newPostChallengeType, setNewPostChallengeType] = useState("SFIDA GIORNALIERA");
   const [newPostImage, setNewPostImage] = useState(null);
-  const [user, setUser] = useState({
-    id: 1,
-    firstName: "Mario",
-    lastName: "Rossi",
-  });
-  const [news, setNews] = useState([]);
   const [posts, setPosts] = useState([
     {
       id: 1,
       creatorId: 2,
       creatorName: "Laura Bianchi",
       content: "Buongiorno amici! Iniziamo bene la settimana con questa nuova piantina in ufficio. Vi piace? A me piace TANTISSIMO! #greenlife #greenchallenge #sostenibilità #SfidaSettimanale",
-      image: PiantaImage,
-      challengeType: "SFIDA SETTIMANALE", // Aggiungi il tipo di sfida
-      likes: [],
-      comments: [],
+      image: require("../materials/Pianta.jpg"),
+      challengeType: "SFIDA SETTIMANALE",
+      likes: [2, 3],
+      comments: [
+        { userId: 2, userName: "Giovanni Verdi", text: "Bellissima pianta!" },
+        { userId: 3, userName: "Mario Rossi", text: "Concordo, è stupenda!" },
+      ],
+      points: 80, // Punti guadagnati
     },
     {
       id: 2,
       creatorId: 3,
       creatorName: "Giovanni Verdi",
       content: "Ho fatto la sfida green giornaliera! Ecco a voi il mio dolce vegano :D. Che ne pensate? #greenlife #greenchallenge #sostenibilità #SfidaGiornaliera",
-      image: DolceImage,
-      challengeType: "SFIDA GIORNALIERA", // Tipo di sfida
-      likes: [],
+      image: require("../materials/Dolce.jpg"),
+      challengeType: "SFIDA GIORNALIERA",
+      likes: [1],
       comments: [],
+      points: 20, // Punti guadagnati
     },
   ]);
 
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState([
+    { id: 1, message: "Laura Bianchi ha messo 'Mi piace' al tuo post." },
+    { id: 2, message: "Giovanni Verdi ha commentato il tuo post." },
+  ]);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-
-  useEffect(() => {
-    const fetchedNews = [
-      {
-        title: "Riduzione della plastica: consigli utili",
-        description: "Scopri come ridurre l'uso della plastica nella vita quotidiana.",
-        url: "https://www.fanpage.it/innovazione/",
-      },
-      {
-        title: "Energia rinnovabile: il futuro è adesso",
-        description: "Le ultime novità sull'energia solare e eolica.",
-        url: "https://www.fanpage.it/innovazione/",
-      },
-      {
-        title: "Cibo sostenibile: una scelta per il pianeta",
-        description: "Come scegliere alimenti che rispettano l'ambiente.",
-        url: "https://www.fanpage.it/innovazione/",
-      },
-    ];
-    setNews(fetchedNews);
-  }, []);
+  const [unreadNotifications, setUnreadNotifications] = useState(true); // Stato per notifiche non lette
 
   const handleNotificationsClick = (event) => {
     setAnchorEl(event.currentTarget);
+    setUnreadNotifications(false); // Spegne il tasto notifiche
   };
 
   const handleNotificationsClose = () => {
     setAnchorEl(null);
-    setNotifications([]);
-  };
-
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImage(imageUrl);
-    }
-  };
-
-  const handleLike = (postId) => {
-    const updatedPosts = posts.map((post) => {
-      if (post.id === postId) {
-        if (post.likes.includes(user.id)) {
-          post.likes = post.likes.filter((userId) => userId !== user.id);
-        } else {
-          post.likes.push(user.id);
-          if (post.creatorId !== user.id) {
-            setNotifications((prev) => [
-              ...prev,
-              {
-                id: Date.now(),
-                message: `${user.firstName} ${user.lastName} ha messo "Mi piace" al tuo post.`,
-              },
-            ]);
-          }
-        }
-      }
-      return post;
-    });
-    setPosts(updatedPosts);
-  };
-
-  const handleAddComment = (postId, commentText) => {
-    if (!user || !user.firstName || !user.lastName) {
-      setSnackbarOpen(true);
-      return;
-    }
-
-    if (commentText.trim() === "") return;
-
-    const updatedPosts = posts.map((post) => {
-      if (post.id === postId) {
-        post.comments.push({
-          userId: user.id,
-          userName: `${user.firstName} ${user.lastName}`,
-          text: commentText,
-        });
-
-        if (post.creatorId !== user.id) {
-          setNotifications((prev) => [
-            ...prev,
-            {
-              id: Date.now(),
-              message: `${user.firstName} ${user.lastName} ha commentato il tuo post.`,
-            },
-          ]);
-        }
-      }
-      return post;
-    });
-    setPosts(updatedPosts);
   };
 
   const handleCreatePost = () => {
     if (!newPostContent.trim()) {
-      setSnackbarOpen(true);
+      alert("Il contenuto del post non può essere vuoto.");
       return;
     }
 
     const newPost = {
       id: Date.now(),
       creatorId: user.id,
-      creatorName: `${user.firstName} ${user.lastName}`,
+      creatorName: `${user.nome} ${user.cognome}`,
       content: newPostContent,
       image: newPostImage,
-      challengeType: newPostChallengeType, // Aggiungi il tipo di sfida
+      challengeType: newPostChallengeType,
       likes: [],
       comments: [],
+      points: 0, // Nuovi post iniziano con 0 punti
     };
 
     setPosts((prevPosts) => [newPost, ...prevPosts]);
@@ -162,11 +94,32 @@ const HomeSocial = () => {
     setNewPostImage(null);
   };
 
-  const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
+  const handleLike = (postId) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === postId
+          ? { ...post, likes: post.likes.includes(user.id) ? post.likes.filter((id) => id !== user.id) : [...post.likes, user.id] }
+          : post
+      )
+    );
   };
 
-  console.log(posts);
+  const handleAddComment = (postId) => {
+    if (!newComment.trim()) return;
+
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === postId
+          ? { ...post, comments: [...post.comments, { userId: user.id, userName: `${user.nome} ${user.cognome}`, text: newComment }] }
+          : post
+      )
+    );
+    setNewComment("");
+  };
+
+  const handleAddEmoji = (emoji) => {
+    setNewPostContent((prevContent) => prevContent + emoji);
+  };
 
   return (
     <div
@@ -175,14 +128,10 @@ const HomeSocial = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         minHeight: "100vh",
-        margin: 0, // Rimuove margini
-        padding: 0, // Rimuove padding
-        boxSizing: "border-box", // Assicura che il padding non influenzi le dimensioni
       }}
     >
-      {/* Contenuto principale */}
       <Box sx={{ display: "flex", flexDirection: "row", px: 2 }}>
-        {/* Sezione laterale sinistra */}
+        {/* Sidebar sinistra */}
         <Box sx={{ width: "20%", p: 2 }}>
           <Link to="/" style={{ textDecoration: "none" }}>
             <Button
@@ -220,83 +169,70 @@ const HomeSocial = () => {
           <Button
             fullWidth
             variant="contained"
+            startIcon={<NotificationsIcon />}
             sx={{
               mb: 1,
-              backgroundColor: "#044c93",
+              backgroundColor: unreadNotifications ? "#ff9800" : "#044c93", // Arancione se ci sono notifiche non lette
               color: "white",
+              fontWeight: "bold",
               '&:hover': {
-                backgroundColor: "#033b73",
-              },
-            }}
-          >
-            Messaggi
-          </Button>
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{
-              backgroundColor: "#044c93",
-              color: "white",
-              '&:hover': {
-                backgroundColor: "#033b73",
+                backgroundColor: unreadNotifications ? "#e68900" : "#033b73",
               },
             }}
             onClick={handleNotificationsClick}
           >
-            <NotificationsIcon
-              sx={{
-                mr: 1,
-                color: notifications.length > 0 ? "red" : "white",
-              }}
-            />
             Notifiche
           </Button>
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleNotificationsClose}
-            sx={{ mt: 1 }}
           >
-            {notifications.length > 0 ? (
-              notifications.map((notification) => (
-                <MenuItem key={notification.id} onClick={handleNotificationsClose}>
-                  {notification.message}
-                </MenuItem>
-              ))
+            {notifications.length === 0 ? (
+              <MenuItem>Nessuna notifica</MenuItem>
             ) : (
-              <MenuItem onClick={handleNotificationsClose}>Nessuna notifica</MenuItem>
+              notifications.map((notification) => (
+                <MenuItem key={notification.id}>{notification.message}</MenuItem>
+              ))
             )}
           </Menu>
         </Box>
 
         {/* Feed centrale */}
         <Box sx={{ width: "60%", p: 2 }}>
-          {/* Post input */}
           <Card sx={{ mb: 2, borderColor: "#044c93", borderWidth: 1, borderStyle: "solid" }}>
             <CardContent>
-              {/* Informazioni sull'utente */}
               <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                 <Avatar
-                  alt={`${user.firstName} ${user.lastName}`}
-                  src={NoProfilePicture} // Usa l'immagine di profilo o quella di default
+                  alt={`${user.nome} ${user.cognome}`}
+                  src={user.avatar || "https://via.placeholder.com/150"}
                   sx={{ width: 50, height: 50, mr: 2 }}
                 />
                 <Typography variant="h6" sx={{ fontWeight: "bold", color: "#044c93" }}>
-                  {`${user.firstName} ${user.lastName}`}
+                  {`${user.nome} ${user.cognome}`}
                 </Typography>
               </Box>
-
-              {/* Campo per pubblicare la sfida */}
-              <TextField
-                placeholder="Pubblica qui la tua sfida!"
-                multiline
-                rows={3}
-                fullWidth
-                variant="outlined"
-                sx={{ mb: 2 }}
-                value={newPostContent}
-                onChange={(e) => setNewPostContent(e.target.value)}
-              />
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
+                <TextField
+                  placeholder="Pubblica qui la tua sfida!"
+                  multiline
+                  rows={3}
+                  fullWidth
+                  variant="outlined"
+                  value={newPostContent}
+                  onChange={(e) => setNewPostContent(e.target.value)}
+                />
+                <IconButton
+                  onClick={() => handleAddEmoji("😊")}
+                  sx={{
+                    backgroundColor: "#044c93",
+                    color: "white",
+                    '&:hover': { backgroundColor: "#033b73" },
+                  }}
+                >
+                  <EmojiEmotionsIcon />
+                </IconButton>
+              </Box>
               <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
                 <TextField
                   select
@@ -324,18 +260,16 @@ const HomeSocial = () => {
                     type="file"
                     accept="image/*"
                     hidden
-                    onChange={(e) => {
-                      const file = e.target.files[0];
-                      if (file) {
-                        const imageUrl = URL.createObjectURL(file);
-                        setNewPostImage(imageUrl);
-                      }
-                    }}
+                    onChange={(e) => setNewPostImage(URL.createObjectURL(e.target.files[0]))}
                   />
                 </Button>
               </Box>
               <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2 }}>
-                <Button variant="contained" sx={{ backgroundColor: "#044c93", color: "white" }} onClick={handleCreatePost}>
+                <Button
+                  variant="contained"
+                  sx={{ backgroundColor: "#044c93", color: "white" }}
+                  onClick={handleCreatePost}
+                >
                   Pubblica
                 </Button>
               </Box>
@@ -354,144 +288,89 @@ const HomeSocial = () => {
               )}
             </CardContent>
           </Card>
-          {/* Feed dei post */}
-          <Box>
-            {posts.map((post) => (
-              <Card key={post.id} sx={{ mb: 2, borderColor: "#044c93", borderWidth: 1, borderStyle: "solid" }}>
-                <CardContent>
-                  <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                    <Avatar
-                      alt={post.creatorName}
-                      src={post.creatorId === user.id && user.avatar ? user.avatar : NoProfilePicture} // Usa l'immagine dell'utente o quella di default
-                      sx={{ width: 40, height: 40, mr: 2 }}
-                    />
-                    <Typography variant="h6" sx={{ fontWeight: "bold", color: "#044c93" }}>
-                      {post.creatorName}
-                    </Typography>
-                  </Box>
-                  {/* Tipo di sfida */}
-                  <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                    <CheckCircleIcon sx={{ color: "green", mr: 1 }} />
-                    <Typography variant="body2" sx={{ color: "#044c93", fontWeight: "bold" }}>
-                      {post.challengeType}
-                    </Typography>
-                  </Box>
-                  <Typography variant="body1" sx={{ mb: 2 }}>
-                    {post.content}
-                  </Typography>
-                  {post.image ? (
-                    <CardMedia
-                      component="img"
-                      sx={{
-                        borderRadius: 2,
-                        width: "50%",
-                        height: "auto",
-                        aspectRatio: "4 / 3",
-                        objectFit: "cover",
-                        alignSelf: "center",
-                      }}
-                      image={post.image}
-                      alt="Post image"
-                    />
-                  ) : (
-                    <CardMedia
-                      component="img"
-                      sx={{
-                        borderRadius: 2,
-                        width: "100%",
-                        height: "auto",
-                        aspectRatio: "4 / 3",
-                        objectFit: "cover",
-                      }}
-                      image={NoProfilePicture} // Usa un'immagine di default
-                      alt="Immagine non disponibile"
-                    />
-                  )}
-                  {/* Mi piace */}
-                  <Box sx={{ display: "flex", alignItems: "center", mt: 2, gap: 2 }}>
-                    <IconButton onClick={() => handleLike(post.id)} sx={{ color: post.likes.includes(user.id) ? "#033b73" : "#044c93" }}>
-                      <ThumbUpIcon />
-                    </IconButton>
-                    <Typography variant="body2" sx={{ mr: 2 }}>
-                      {post.likes.length} Mi piace
-                    </Typography>
-                  </Box>
-                  {/* Commenti */}
-                  <Box>
-                    <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
-                      Commenti
-                    </Typography>
-                    {post.comments.map((comment, index) => (
-                      <Typography key={index} variant="body2" sx={{ mb: 1 }}>
-                        <strong>{comment.userName}:</strong> {comment.text}
-                      </Typography>
-                    ))}
-                    <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
-                      <TextField
-                        placeholder="Scrivi un commento..."
-                        variant="outlined"
-                        size="small"
-                        fullWidth
-                        onChange={(e) => setNewComment(e.target.value)}
-                      />
-                      <Button
-                        variant="contained"
-                        sx={{ backgroundColor: "#044c93", color: "white" }}
-                        onClick={() => handleAddComment(post.id, newComment)}
-                      >
-                        Invia
-                      </Button>
-                    </Box>
-                  </Box>
-                </CardContent>
-              </Card>
-            ))}
-          </Box>
-        </Box>
 
-        {/* Sezione laterale destra: News dal mondo */}
-        <Box sx={{ width: "20%", p: 2 }}>
-          <Typography variant="h6" sx={{ fontFamily: 'Arial, sans-serif', fontWeight: "bold", mb: 2, color: "#044c93" }}>
-            News dal mondo
-          </Typography>
-          {news.map((article, index) => (
-            <Card key={index} sx={{ mb: 2, boxShadow: 3, borderRadius: 2, border: "1px solid #044c93" }}>
+          {/* Post finti */}
+          {posts.map((post) => (
+            <Card key={post.id} sx={{ mb: 2, boxShadow: 3 }}>
               <CardContent>
-                <Typography variant="subtitle1" sx={{ fontWeight: "bold", color: "#033b73", mb: 1 }}>
-                  {article.title}
+                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                  <Avatar
+                    alt={post.creatorName}
+                    src="https://via.placeholder.com/150"
+                    sx={{ width: 50, height: 50, mr: 2 }}
+                  />
+                  <Typography variant="h6" sx={{ fontWeight: "bold", color: "#044c93" }}>
+                    {post.creatorName}
+                  </Typography>
+                </Box>
+                <Typography variant="body1" sx={{ mb: 2 }}>
+                  {post.content}
                 </Typography>
-                <Typography variant="body2" sx={{ color: "#555", mb: 2 }}>
-                  {article.description}
+                {post.image && (
+                  <CardMedia
+                    component="img"
+                    sx={{
+                      borderRadius: 2,
+                      width: "50%",
+                      height: "auto",
+                      mb: 2,
+                      mx: "auto",
+                    }}
+                    image={post.image}
+                    alt="Post image"
+                  />
+                )}
+                <Typography variant="body2" sx={{ color: "#044c93", fontWeight: "bold" }}>
+                  {post.challengeType}
                 </Typography>
-                <a
-                  href={article.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: "#044c93",
-                    textDecoration: "none",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Leggi di più
-                </a>
+                <Box sx={{ display: "flex", alignItems: "center", mt: 2, gap: 1 }}>
+                  <CheckCircleIcon sx={{ color: "#4caf50" }} />
+                  <Typography variant="body2" sx={{ fontWeight: "bold", color: "#4caf50" }}>
+                    {post.points} Fanta Punti
+                  </Typography>
+                </Box>
+                <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
+                  <IconButton onClick={() => handleLike(post.id)}>
+                    <ThumbUpIcon
+                      sx={{
+                        color: post.likes.includes(user.id) ? "#044c93" : "gray",
+                      }}
+                    />
+                  </IconButton>
+                  <Typography variant="body2" sx={{ color: "#044c93", fontWeight: "bold" }}>
+                    {post.likes.length} Mi piace
+                  </Typography>
+                </Box>
+                <Box sx={{ mt: 2 }}>
+                  <Typography variant="body2" sx={{ fontWeight: "bold", mb: 1 }}>
+                    Commenti:
+                  </Typography>
+                  {post.comments.map((comment, index) => (
+                    <Typography key={index} variant="body2" sx={{ mb: 1 }}>
+                      <strong>{comment.userName}:</strong> {comment.text}
+                    </Typography>
+                  ))}
+                  <TextField
+                    placeholder="Scrivi un commento..."
+                    fullWidth
+                    variant="outlined"
+                    size="small"
+                    sx={{ mt: 1 }}
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleAddComment(post.id);
+                      }
+                    }}
+                  />
+                </Box>
               </CardContent>
             </Card>
           ))}
         </Box>
       </Box>
-
-      {/* Snackbar per messaggio di errore */}
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: "100%" }}>
-          Il contenuto del post non può essere vuoto.
-        </Alert>
-      </Snackbar>
     </div>
   );
 };
