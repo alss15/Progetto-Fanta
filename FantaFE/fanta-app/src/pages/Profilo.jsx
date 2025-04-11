@@ -16,10 +16,8 @@ import {
   DialogTitle,
 } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Link } from "react-router-dom";
-import SfideList from "../components/SfideList";
 import CreateSfida from "../components/CreateSfida";
 
 const Profilo = () => {
@@ -52,25 +50,18 @@ const Profilo = () => {
     },
   ]);
 
-  const [notifications, setNotifications] = useState([
-    { id: 1, message: "Laura Bianchi ha messo 'Mi piace' al tuo post." },
-    { id: 2, message: "Pippo Rossi ha commentato il tuo post." },
-  ]);
-
   const [anchorEl, setAnchorEl] = useState(null);
   const [openCreateSfida, setOpenCreateSfida] = useState(false);
 
-  const handleNotificationsClick = (event) => {
-    setAnchorEl(event.currentTarget);
+
+  const handleCreateSfidaClick = () => {
+    setOpenCreateSfida(true); // Mostra il componente CreateSfida
   };
 
-  const handleNotificationsClose = () => {
-    setAnchorEl(null);
-    setNotifications([]);
-
+  const handleCloseCreateSfida = () => {
+    setOpenCreateSfida(false); // Chiudi il componente CreateSfida
   };
 
-  {/* Calcolo dei punti totali */}
   const totalPoints = posts.reduce((sum, post) => sum + (post.points || 0), 0);
 
   return (
@@ -82,26 +73,28 @@ const Profilo = () => {
         minHeight: "100vh",
       }}
     >
-      <Box align='center' sx={{ display: "flex", flexDirection: "column", alignItems: "center", px: 2 }}>
-        {/* Contenitore informazioni profilo */}
+      <Box align="center" sx={{ display: "flex", flexDirection: "column", alignItems: "center", px: 2 }}>
         <Container>
-          <Paper elevation={3} align='left' sx={{ padding: 3, mt: 4, mb: 4, width: "30%", borderRadius: 2 }}>
+          <Paper elevation={3} align="left" sx={{ padding: 3, mt: 4, mb: 4, width: "30%", borderRadius: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 4, justifyContent: "center" }}>
               <Avatar
                 alt={`${user.nome} ${user.cognome}`}
                 src="../materials/Pippo.png"
-                sx={{ width: 80, height: 80, mr: 3, border: "3px solid #044c93",
+                sx={{
+                  width: 80, height: 80, mr: 3, border: "3px solid #044c93",
                   boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                   transition: "transform 0.3s ease",
                   "&:hover": { transform: "scale(1.1)" },
                 }}
-              />
-              <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+            ></Avatar>
+              <Box>
                 <Typography variant="h5" sx={{ fontWeight: "bold" }}>
                   {user.nome} {user.cognome}
                 </Typography>
-                <Typography variant="body1" sx={{ color: "gray", mt : 1 }}>
+                <Typography variant="body1" sx={{ color: "gray", mt: 1 }}>
                   Bentornato {user.nome}! Completa le sfide e guadagna FantaMonete!
+
+
                 </Typography>
               </Box>
             </Box>
@@ -112,70 +105,89 @@ const Profilo = () => {
                   sx={{
                     backgroundColor: "#044c93",
                     color: "white",
-                    '&:hover': { backgroundColor: "#033b73" },
+                    "&:hover": { backgroundColor: "#033b73" },
+                    fontWeight: "bold",
+
+
                   }}
                   fullWidth
                 >
-                  Home Fanta-social!
+                  Home Fanta-Social!
                 </Button>
               </Link>
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: "#044c93",
-                  color: "white",
-                  '&:hover': { backgroundColor: "#033b73" },
-                }}
-                onClick={handleNotificationsClick}
-                fullWidth
-              >
-                <NotificationsIcon
+              <Link to="/sfide" style={{ textDecoration: "none" }}>
+                <Button
+                  fullWidth
+                  variant="contained"
                   sx={{
-                    mr: 1,
-                    color: notifications.length > 0 ? "red" : "white",
+                    mb: 2,
+                    backgroundColor: "#044c93",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "#033b73",
+                    },
                   }}
                 >
                   Sfide in corso
                 </Button>
               </Link>
+              {/* Se l'utente è un admin, mostra il bottone per creare una sfida */}
+              {user && user.role === "admin" && (
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#044c93",
+                    color: "white",
+                    "&:hover": { backgroundColor: "#033b73" },
+                    mb: 3,
+                  }}
+                  onClick={handleCreateSfidaClick}
+                >
+                  Crea Sfida
+                </Button>
+              )}
+              {/* Mostra il dialogo per creare una sfida */}
+              <Dialog open={openCreateSfida} onClose={handleCloseCreateSfida}>
+                <DialogTitle>Crea una nuova sfida</DialogTitle>
+                <DialogContent>
+                  <CreateSfida />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseCreateSfida} color="primary">
+                    Annulla
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </Box>
           </Paper>
         </Container>
-      
-
-      
-
-      {/* Contenitore principale */}
-      <Box align="center" sx={{ mb: 4, width: "60%" }}>
-        {/* Contatore delle FantaMonete */}
+        {/*Contatore delle FantaMonete*/}
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             backgroundColor: "#f0f0f0",
-          
-            color: "#044c93", 
-            padding: "10px 20px", 
-            borderRadius: "8px", 
-            textAlign: "center", 
-            mb: 3, 
-            fontWeight: "bold", 
-            width: "fit-content", 
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 5)", 
+            color: "#044c93",
+            padding: "10px 20px",
+            borderRadius: "8px",
+            textAlign: "center",
+            mb: 3,
+            fontWeight: "bold",
+            width: "fit-content",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 5)",
           }}
         >
-          {/* Icona della moneta */}
           <img
             src={require("../materials/Moneta.png")}
             alt="FantaMonete"
             style={{
-              width: "30px", // Larghezza dell'icona
-              height: "30px", // Altezza dell'icona
-              marginRight: "10px", // Spaziatura tra l'icona e il testo
-              border: "2px solid white", // Contorno bianco
-              borderRadius: "50%", // Per rendere il contorno circolare
-              backgroundColor: "white", // Sfondo bianco dietro l'immagine
+              width: "30px",
+              height: "30px",
+              marginRight: "10px",
+              border: "2px solid white",
+              borderRadius: "50%",
+              backgroundColor: "white",
             }}
           />
           <Typography variant="h6" sx={{ fontWeight: "bold" }}>
@@ -183,68 +195,66 @@ const Profilo = () => {
           </Typography>
         </Box>
 
-        {/* Titolo "Sfide Effettuate" */}
-        <Box
-          sx={{
-            backgroundColor: "#044c93", 
-            color: "white", 
-            padding: "10px 20px", 
-            borderRadius: "8px", 
-            textAlign: "center", 
-            mb: 3, 
-            BoxShadow: "0px 4px 8px rgba(0, 0, 0, 5)", 
-          }}
-        >
-          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-            Sfide Effettuate
-          </Typography>
-        </Box>
+        
 
         {/* Lista dei post */}
-        {posts.map((post) => (
-          <Paper
-            key={post.id}
-            elevation={3}
-            sx={{
-              padding: 3,
-              mb: 4,
-              borderRadius: 2,
-              border: "1px solid #044c93",
-            }}
-          >
-            {/* Tipo di sfida e punti guadagnati con check verde */}
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-              <Typography variant="body2" sx={{ fontWeight: "bold", color: "#044c93" }}>
-                {post.creatorName} - {post.content.includes("settimanale") ? "SFIDA SETTIMANALE" : "SFIDA GIORNALIERA"}
-              </Typography>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap", // Permette di andare a capo se lo spazio non è sufficiente
+            justifyContent: "center", // Centra i post orizzontalmente
+            gap: 3, // Spaziatura tra i post
+            mt: 3, // Margine superiore
+            mb: 3, // Margine inferiore
+          }}
+        >
+          {posts.map((post) => (
+            <Paper
+              key={post.id}
+              elevation={3}
+              sx={{
+                padding: 3,
+                mb: 4,
+                borderRadius: 2,
+                border: "1px solid #044c93",
+                width: "400px", // Larghezza fissa
+                height: "350px", // Altezza fissa
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between", // Distribuisce il contenuto
+              }}
+            >
+              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
                 <Typography variant="body2" sx={{ fontWeight: "bold", color: "#044c93" }}>
-                  +{post.points || 0} FantaMonete
+                  {post.creatorName} - {post.content.includes("settimanale") ? "SFIDA SETTIMANALE" : "SFIDA GIORNALIERA"}
                 </Typography>
-                <CheckCircleIcon sx={{ color: "green" }} />
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <Typography variant="body2" sx={{ fontWeight: "bold", color: "#044c93" }}>
+                    +{post.points || 0} FantaMonete
+                  </Typography>
+                  <CheckCircleIcon sx={{ color: "green" }} />
+                </Box>
               </Box>
-            </Box>
 
               <Typography variant="body1" sx={{ mb: 2, textAlign: "justify" }}>
                 {post.content}
               </Typography>
 
-            {/* Immagine del post */}
-            {post.image && (
-              <CardMedia
-                component="img"
-                sx={{
-                  borderRadius: 2,
-                  width: "100%", // Larghezza massima
-                  height: "auto", // Altezza automatica
-                  aspectRatio: "4 / 3", // Mantiene il rapporto 4:3
-                  mb: 2,
-                  objectFit: "cover", // Assicura che l'immagine riempia l'area
-                }}
-                image={post.image}
-                alt="Post image"
-              />
-            )}
+              {post.image && (
+                <CardMedia
+                  component="img"
+                  sx={{
+                    borderRadius: 2,
+                    width: "100%",
+                    height: "auto",
+                    aspectRatio: "4 / 3",
+                    mb: 2,
+                    objectFit: "cover",
+                  }}
+                  image={post.image}
+                  alt="Post image"
+                />
+              )}
 
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 <IconButton sx={{ color: "#044c93" }}>
@@ -256,8 +266,7 @@ const Profilo = () => {
           ))}
         </Box>
       </Box>
-    </div>
-  );
-};
-
+   </div>
+ )
+}
 export default Profilo;
