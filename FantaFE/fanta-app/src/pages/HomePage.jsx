@@ -84,11 +84,12 @@ const HomePage = () => {
             sx={{
               color: "#555",
               mb: 4,
-              fontSize: "1rem",
+              fontSize: "1.2rem", // Stessa dimensione del testo sopra
               lineHeight: 1.8,
+              fontFamily: "'Poppins', sans-serif", // Stesso font del titolo sopra
             }}
           >
-            Completa in tempo le sfide che l'admin prepara per voi creator. Ogni sfida ha una tempistica e un punteggio personalizzato in base al tempo. Ci sono 3 tempistiche:
+            Completa in tempo le sfide che l'admin prepara per voi creator. Ogni sfida ha una tempistica e un punteggio personalizzato in base al tempo. Ci sono 3 tipi di sfide:
           </Typography>
 
           {/* Bottoni per le sfide */}
