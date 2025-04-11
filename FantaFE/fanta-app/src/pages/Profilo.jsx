@@ -30,7 +30,7 @@ const Profilo = () => {
     {
       id: 1,
       creatorId: 1,
-      creatorName: "Mario Rossi",
+      creatorName: "Valerio Rossi",
       content: "Sfida settimanale completata! Ecco la mia pianta!",
       image: require("../materials/Pianta.jpg"),
       likes: [2, 3],
@@ -43,7 +43,7 @@ const Profilo = () => {
     {
       id: 2,
       creatorId: 1,
-      creatorName: "Mario Rossi",
+      creatorName: "Valerio Rossi",
       content: "Ho completato la sfida green giornaliera!",
       image: require("../materials/Dolce.jpg"),
       likes: [2],
@@ -70,14 +70,7 @@ const Profilo = () => {
 
   };
 
-  const handleCreateSfidaClick = () => {
-    setOpenCreateSfida(true); // Mostra il componente CreateSfida
-  };
-
-  const handleCloseCreateSfida = () => {
-    setOpenCreateSfida(false); // Chiudi il componente CreateSfida
-  };
-
+  {/* Calcolo dei punti totali */}
   const totalPoints = posts.reduce((sum, post) => sum + (post.points || 0), 0);
 
   return (
@@ -89,9 +82,10 @@ const Profilo = () => {
         minHeight: "100vh",
       }}
     >
-    <Box align="center" sx={{ display: "flex", flexDirection: "column", alignItems: "center", px: 2 }}>
+      <Box align='center' sx={{ display: "flex", flexDirection: "column", alignItems: "center", px: 2 }}>
+        {/* Contenitore informazioni profilo */}
         <Container>
-          <Paper elevation={3} align="left" sx={{ padding: 3, mt: 4, mb: 4, width: "30%", borderRadius: 2 }}>
+          <Paper elevation={3} align='left' sx={{ padding: 3, mt: 4, mb: 4, width: "30%", borderRadius: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 4, justifyContent: "center" }}>
               <Avatar
                 alt={`${user.nome} ${user.cognome}`}
@@ -102,12 +96,12 @@ const Profilo = () => {
                   "&:hover": { transform: "scale(1.1)" },
                 }}
               />
-              <Box>
+              <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
                 <Typography variant="h5" sx={{ fontWeight: "bold" }}>
                   {user.nome} {user.cognome}
                 </Typography>
-                <Typography variant="body1" sx={{ color: "gray" }}>
-                  {user.bio}
+                <Typography variant="body1" sx={{ color: "gray", mt : 1 }}>
+                  Bentornato {user.nome}! Completa le sfide e guadagna FantaMonete!
                 </Typography>
               </Box>
             </Box>
@@ -118,13 +112,11 @@ const Profilo = () => {
                   sx={{
                     backgroundColor: "#044c93",
                     color: "white",
-                    "&:hover": { backgroundColor: "#033b73" },
-                    borderRadius: "20px",
-                    padding: "10px",
+                    '&:hover': { backgroundColor: "#033b73" },
                   }}
                   fullWidth
                 >
-                  Home Social
+                  Home Fanta-social!
                 </Button>
               </Link>
               <Button
@@ -132,9 +124,7 @@ const Profilo = () => {
                 sx={{
                   backgroundColor: "#044c93",
                   color: "white",
-                  "&:hover": { backgroundColor: "#033b73" },
-                  borderRadius: "20px",
-                  padding: "10px",
+                  '&:hover': { backgroundColor: "#033b73" },
                 }}
                 onClick={handleNotificationsClick}
                 fullWidth
@@ -144,170 +134,117 @@ const Profilo = () => {
                     mr: 1,
                     color: notifications.length > 0 ? "red" : "white",
                   }}
-                />
-                Notifiche
-              </Button>
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleNotificationsClose}
-                sx={{ mt: 1 }}
-              >
-                {notifications.length > 0 ? (
-                  notifications.map((notification) => (
-                    <MenuItem key={notification.id}>{notification.message}</MenuItem>
-                  ))
-                ) : (
-                  <MenuItem>Nessuna notifica</MenuItem>
-                )}
-              </Menu>
+                >
+                  Sfide in corso
+                </Button>
+              </Link>
             </Box>
           </Paper>
         </Container>
-        {/* Box per le sfide */}
-        <Box align="center" sx={{ mb: 4, width: "60%" }}>
+      
+
+      
+
+      {/* Contenitore principale */}
+      <Box align="center" sx={{ mb: 4, width: "60%" }}>
+        {/* Contatore delle FantaMonete */}
         <Box
-        sx={{
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#f0f0f0",
-    color: "#044c93",
-    padding: "10px 20px",
-    borderRadius: "8px",
-    textAlign: "center",
-    mb: 3,
-    fontWeight: "bold",
-    width: "fit-content",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 5)",
-  }}
->
-  <SfideList/>
-</Box>
-{/* Se l'utente è un admin, mostra il bottone per creare una sfida */}
-{user && user.role === "admin" && (
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "#044c93",
-                color: "white",
-                "&:hover": { backgroundColor: "#033b73" },
-                mb: 3,
-              }}
-              onClick={handleCreateSfidaClick}
-            >
-              Crea Sfida
-            </Button>
-          )}
-         {/* Mostra il dialogo per creare una sfida */}
-         <Dialog open={openCreateSfida} onClose={handleCloseCreateSfida}>
-            <DialogTitle>Crea una nuova sfida</DialogTitle>
-            <DialogContent>
-              <CreateSfida />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseCreateSfida} color="primary">
-                Annulla
-              </Button>
-              <Button onClick={handleCloseCreateSfida} color="primary">
-                Salva
-              </Button>
-            </DialogActions>
-          </Dialog>
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#f0f0f0",
+          
+            color: "#044c93", 
+            padding: "10px 20px", 
+            borderRadius: "8px", 
+            textAlign: "center", 
+            mb: 3, 
+            fontWeight: "bold", 
+            width: "fit-content", 
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 5)", 
+          }}
+        >
+          {/* Icona della moneta */}
+          <img
+            src={require("../materials/Moneta.png")}
+            alt="FantaMonete"
+            style={{
+              width: "30px", // Larghezza dell'icona
+              height: "30px", // Altezza dell'icona
+              marginRight: "10px", // Spaziatura tra l'icona e il testo
+              border: "2px solid white", // Contorno bianco
+              borderRadius: "50%", // Per rendere il contorno circolare
+              backgroundColor: "white", // Sfondo bianco dietro l'immagine
+            }}
+          />
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            FantaMonete: {totalPoints}
+          </Typography>
         </Box>
 
-        <Box align="center" sx={{ mb: 4, width: "60%" }}>
-          <Box
+        {/* Titolo "Sfide Effettuate" */}
+        <Box
+          sx={{
+            backgroundColor: "#044c93", 
+            color: "white", 
+            padding: "10px 20px", 
+            borderRadius: "8px", 
+            textAlign: "center", 
+            mb: 3, 
+            BoxShadow: "0px 4px 8px rgba(0, 0, 0, 5)", 
+          }}
+        >
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            Sfide Effettuate
+          </Typography>
+        </Box>
+
+        {/* Lista dei post */}
+        {posts.map((post) => (
+          <Paper
+            key={post.id}
+            elevation={3}
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#f0f0f0",
-              color: "#044c93",
-              padding: "10px 20px",
-              borderRadius: "8px",
-              textAlign: "center",
-              mb: 3,
-              fontWeight: "bold",
-              width: "fit-content",
-              boxShadow: "0px 4px 8px rgba(0, 0, 0, 5)",
+              padding: 3,
+              mb: 4,
+              borderRadius: 2,
+              border: "1px solid #044c93",
             }}
           >
-            <img
-              src={require("../materials/Moneta.png")}
-              alt="FantaMonete"
-              style={{
-                width: "30px",
-                height: "30px",
-                marginRight: "10px",
-                border: "2px solid white",
-                borderRadius: "50%",
-                backgroundColor: "white",
-              }}
-            />
-            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-              FantaMonete: {totalPoints}
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              backgroundColor: "#044c93",
-              color: "white",
-              padding: "10px 20px",
-              borderRadius: "8px",
-              textAlign: "center",
-              mb: 3,
-              BoxShadow: "0px 4px 8px rgba(0, 0, 0, 5)",
-            }}
-          >
-            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-              Sfide Effettuate
-            </Typography>
-          </Box>
-
-          {posts.map((post) => (
-            <Paper
-              key={post.id}
-              elevation={3}
-              sx={{
-                padding: 3,
-                mb: 4,
-                borderRadius: 2,
-                border: "1px solid #044c93",
-              }}
-            >
-              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+            {/* Tipo di sfida e punti guadagnati con check verde */}
+            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+              <Typography variant="body2" sx={{ fontWeight: "bold", color: "#044c93" }}>
+                {post.creatorName} - {post.content.includes("settimanale") ? "SFIDA SETTIMANALE" : "SFIDA GIORNALIERA"}
+              </Typography>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <Typography variant="body2" sx={{ fontWeight: "bold", color: "#044c93" }}>
-                  {post.creatorName} - {post.content.includes("settimanale") ? "SFIDA SETTIMANALE" : "SFIDA GIORNALIERA"}
+                  +{post.points || 0} FantaMonete
                 </Typography>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <Typography variant="body2" sx={{ fontWeight: "bold", color: "#044c93" }}>
-                    +{post.points || 0} FantaMonete
-                  </Typography>
-                  <CheckCircleIcon sx={{ color: "green" }} />
-                </Box>
+                <CheckCircleIcon sx={{ color: "green" }} />
               </Box>
+            </Box>
 
               <Typography variant="body1" sx={{ mb: 2, textAlign: "justify" }}>
                 {post.content}
               </Typography>
 
-              {post.image && (
-                <CardMedia
-                  component="img"
-                  sx={{
-                    borderRadius: 2,
-                    width: "100%",
-                    height: "auto",
-                    aspectRatio: "4 / 3",
-                    mb: 2,
-                    objectFit: "cover",
-                  }}
-                  image={post.image}
-                  alt="Post image"
-                />
-              )}
+            {/* Immagine del post */}
+            {post.image && (
+              <CardMedia
+                component="img"
+                sx={{
+                  borderRadius: 2,
+                  width: "100%", // Larghezza massima
+                  height: "auto", // Altezza automatica
+                  aspectRatio: "4 / 3", // Mantiene il rapporto 4:3
+                  mb: 2,
+                  objectFit: "cover", // Assicura che l'immagine riempia l'area
+                }}
+                image={post.image}
+                alt="Post image"
+              />
+            )}
 
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 <IconButton sx={{ color: "#044c93" }}>
