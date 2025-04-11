@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 import { Container, Paper, Box, Typography, Button, Grid } from '@mui/material';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+
+  const navigate = useNavigate();
+
+  const { isLoggedIn, logout } = useAuth();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await logout();
+      console.log("Logout effettuato con successo");
+      localStorage.removeItem("user"); // Rimuovi l'oggetto utente dal localStorage
+      navigate("/");
+      
+
+    } catch (error) {
+      console.error("Errore durante il logout:", error);
+      alert("Errore durante il logout. Controlla le credenziali e riprova.");
+    }
+  };
+
   return (
     <div className="sfondoimmaginegialla" style={{ minHeight: "100vh", backgroundSize: "cover" }}>
       <Container maxWidth="lg" sx={{ py: 5 }}>
@@ -37,7 +59,25 @@ const HomePage = () => {
             Rendi la tua azienda FANTA-stica con il nostro sistema di gamification!
           </Typography>
           <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
-            <Link to="/login" style={{ textDecoration: "none" }}>
+          {isLoggedIn ? (
+            
+            <>
+              <Button
+              onClick={handleLogout}
+                variant="contained"
+                sx={{
+                  backgroundColor: "#044c93",
+                  color: "white",
+                  fontWeight: "bold",
+                  '&:hover': { backgroundColor: "#033b73" },
+                }}
+              >
+                Logout
+              </Button>
+            </>
+          ) : (<>
+          
+          <Link to="/login" style={{ textDecoration: "none" }}>
               <Button
                 variant="contained"
                 sx={{
@@ -52,17 +92,20 @@ const HomePage = () => {
             </Link>
             <Link to="/registrati" style={{ textDecoration: "none" }}>
               <Button
-                variant="outlined"
+                variant="contained"
                 sx={{
-                  borderColor: "#044c93",
-                  color: "#044c93",
+                  backgroundColor: "white",
+                  color: "#033b73",
                   fontWeight: "bold",
-                  '&:hover': { backgroundColor: "#044c93", color: "white" },
+                  '&:hover': { backgroundColor: "#033b73" },
                 }}
               >
                 Registrati
               </Button>
             </Link>
+            
+            </>)}
+            
           </Box>
         </Paper>
 

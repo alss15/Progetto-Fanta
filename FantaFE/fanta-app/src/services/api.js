@@ -17,8 +17,8 @@ export const loginUser = async (username, password) => {
         username,
         password
          });
-        console.log(response)
-    return response; 
+        
+    return response.data; 
    };
 
    // Imposta il token nell'header Authorization

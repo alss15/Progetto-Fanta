@@ -35,14 +35,6 @@ const NavBar = () => {
                     </div>
                 </Link>
             </div>
-            <div className="navbar-right">
-                <Link to="/home-social" className="navbar-modern-button">
-                    Home Social
-                </Link>
-                <Link to={profilePath} className="navbar-modern-button">
-                    Profilo
-                </Link>
-            </div>
         </nav>
     );
 };

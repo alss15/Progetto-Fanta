@@ -25,19 +25,18 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedRole) {
-      alert("Seleziona un ruolo prima di accedere.");
-      return;
-    }
+    
     try {
-      await login(username, password);
+      const user = await login(username, password);
+      localStorage.setItem("user", JSON.stringify(user)); // Salva l'oggetto utente nel localStorage
       console.log("Login effettuato con successo");
 
       // Naviga in base al ruolo selezionato
-      if (selectedRole === "admin") {
+      
+      if (user.role === "admin") { //user is not defined
         navigate("/admin");
-      } else if (selectedRole === "creator") {
-        navigate("/creator");
+      } else if (user.role === "creator") {
+        navigate("/profilo");
       }
     } catch (error) {
       console.error("Errore durante il login:", error);
@@ -84,49 +83,7 @@ const Login = () => {
             margin="normal"
             sx={{ marginBottom: 3 }}
           />
-          <ToggleButtonGroup
-            value={selectedRole}
-            exclusive
-            onChange={handleRoleChange}
-            sx={{ marginBottom: 3 }}
-          >
-            <ToggleButton
-              value="admin"
-              sx={{
-                color: "black",
-                "&.Mui-selected": {
-                  backgroundColor: "#1976d2",
-                  color: "white",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#115293",
-                },
-                padding: "10px 10px",
-                borderRadius: "8px",
-                fontWeight: "bold",
-              }}
-            >
-              Admin
-            </ToggleButton>
-            <ToggleButton
-              value="creator"
-              sx={{
-                color: "black",
-                "&.Mui-selected": {
-                  backgroundColor: "#1976d2",
-                  color: "white",
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#115293",
-                },
-                padding: "10px 10px",
-                borderRadius: "8px",
-                fontWeight: "bold",
-              }}
-            >
-              Creator
-            </ToggleButton>
-          </ToggleButtonGroup>
+          
           <Button
             variant="contained"
             size="large"
@@ -142,6 +99,7 @@ const Login = () => {
         </Box>
       </Paper>
     </Container>
+
   );
 };
 

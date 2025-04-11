@@ -18,11 +18,14 @@ const AuthProvider =({ children }) => {
     }, []);
 
     const login = async (username, password) => {
-        const { token } = await loginUser (username, password);
+        const { token, user } = await loginUser (username, password);
+        
+
         localStorage.setItem('token', token);
         setAuthToken(token);
         setAuthTokenState(token);
-    
+        console.log(user);
+        return user; // Restituisci l'oggetto utente se necessario
     };
     
     const register = async (nome, cognome, username, password, role) => {
@@ -38,6 +41,7 @@ const AuthProvider =({ children }) => {
     }
 
     const logout =() => {
+        
         localStorage.removeItem('token');
         setAuthToken(null);
         setAuthTokenState(null);

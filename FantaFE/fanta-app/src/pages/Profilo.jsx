@@ -17,13 +17,8 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Link } from "react-router-dom";
 
 const Profilo = () => {
-  const [user, setUser] = useState({
-    id: 1,
-    firstName: "Mario",
-    lastName: "Rossi",
-    bio: "Amo la sostenibilità e le sfide green!",
-    avatar: require("../materials/mario.jpg"),
-  });
+  const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+  console.log(user);
 
   const [posts, setPosts] = useState([
     {
@@ -85,13 +80,13 @@ const Profilo = () => {
           <Paper elevation={3} align='left' sx={{ padding: 3, mt: 4, mb: 4, width: "30%", borderRadius: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 4, justifyContent: "center" }}>
               <Avatar
-                alt={`${user.firstName} ${user.lastName}`}
-                src={user.avatar}
+                alt={`${user.nome} ${user.cognome}`}
+                src="../materials/Pippo.png"
                 sx={{ width: 80, height: 80, mr: 3 }}
               />
               <Box>
                 <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                  {user.firstName} {user.lastName}
+                  {user.nome} {user.cognome}
                 </Typography>
                 <Typography variant="body1" sx={{ color: "gray" }}>
                   {user.bio}
