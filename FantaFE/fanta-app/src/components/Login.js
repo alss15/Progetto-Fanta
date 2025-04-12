@@ -34,7 +34,7 @@ const Login = () => {
       // Naviga in base al ruolo selezionato
       
       if (user.role === "admin") { //user is not defined
-        navigate("/admin");
+        navigate("/profilo");
       } else if (user.role === "creator") {
         navigate("/profilo");
       }

@@ -71,7 +71,7 @@ const HomePage = () => {
             align="center"
             sx={{
               fontWeight: "bold",
-              color: "#044c93",
+              color: "#white",
               mb: 2,
               fontFamily: "'Poppins', sans-serif",
             }}

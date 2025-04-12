@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { getSfidaById, updateSfida, deleteSfida } from '../services/api';
 
@@ -12,6 +12,8 @@ const SfidaDetails = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [data, setData] = useState('');
+  const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+
 
   useEffect(() => {
     const fetchSfida = async () => {
@@ -65,45 +67,67 @@ const SfidaDetails = () => {
       <p>{sfida.description}</p>
       <p><strong>Data di scadenza:</strong> {new Date(sfida.data).toLocaleDateString()}</p>
 
-      <h2>Modifica Sfida</h2>
-      <form onSubmit={handleUpdate}>
-        <div>
-          <label htmlFor="title">Titolo</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Descrizione</label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="data">Data di scadenza</label>
-          <input
-            type="date"
-            id="data"
-            value={data}
-            onChange={(e) => setData(e.target.value)}
-          />
-        </div>
-        <button type="submit">Aggiorna</button>
-      </form>
+      {user && user.role === 'admin' && (
+        <>
+          <h2>Modifica Sfida</h2>
+          <form onSubmit={handleUpdate}>
+            <div>
+              <label htmlFor="title">Titolo</label>
+              <input
+                type="text"
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="description">Descrizione</label>
+              <textarea
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="data">Data di scadenza</label>
+              <input
+                type="date"
+                id="data"
+                value={data}
+                onChange={(e) => setData(e.target.value)}
+              />
+            </div>
+            <button type="submit">Aggiorna</button>
+          </form>
 
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleDelete}
+            sx={{ marginTop: '20px' }}
+          >
+            Elimina Sfida
+          </Button>
+        </>
+      )}
       <Button
-        variant="contained"
-        color="error"
-        onClick={handleDelete}
-        sx={{ marginTop: '20px' }}
-      >
-        Elimina Sfida
-      </Button>
+                component={Link}
+                to="/home-social"
+                variant="contained"
+                sx={{
+                  backgroundColor: "#044c93",
+                  color: "white",
+                  fontWeight: "bold",
+                  transition: "transform 0.2s, box-shadow 0.2s",
+                  '&:hover': { 
+                    backgroundColor: "#033b73",
+                    transform: "scale(1.05)",
+                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)"
+                  },
+                }}
+              >
+                Vai a Home Social
+              </Button>
     </div>
   );
 };

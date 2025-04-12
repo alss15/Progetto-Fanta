@@ -133,6 +133,24 @@ const SfideList = () => {
             ))}
           </Box>
         )}
+        <Button
+                component={Link}
+                to="/home-social"
+                variant="contained"
+                sx={{
+                  backgroundColor: "#044c93",
+                  color: "white",
+                  fontWeight: "bold",
+                  transition: "transform 0.2s, box-shadow 0.2s",
+                  '&:hover': { 
+                    backgroundColor: "#033b73",
+                    transform: "scale(1.05)",
+                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)"
+                  },
+                }}
+              >
+                Vai a Home Social
+              </Button>
       </Box>
     </Box>
   );

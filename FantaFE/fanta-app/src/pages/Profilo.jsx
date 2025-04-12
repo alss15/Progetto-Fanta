@@ -218,7 +218,7 @@ const Profilo = () => {
                 borderRadius: 2,
                 border: "1px solid #044c93",
                 width: "400px", // Larghezza fissa
-                height: "350px", // Altezza fissa
+                height: "450px", // Altezza fissa
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between", // Distribuisce il contenuto
@@ -226,7 +226,7 @@ const Profilo = () => {
             >
               <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
                 <Typography variant="body2" sx={{ fontWeight: "bold", color: "#044c93" }}>
-                  {post.creatorName} - {post.content.includes("settimanale") ? "SFIDA SETTIMANALE" : "SFIDA GIORNALIERA"}
+                  {post.creatorName}
                 </Typography>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <Typography variant="body2" sx={{ fontWeight: "bold", color: "#044c93" }}>

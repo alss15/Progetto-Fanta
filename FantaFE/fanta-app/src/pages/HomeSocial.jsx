@@ -17,11 +17,14 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import { Link } from "react-router-dom";
+import MenuListe from "../components/MenuListe";
 
 const HomeSocial = () => {
   // Recupera l'utente da localStorage
   const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
 
+
+  
   const [newComment, setNewComment] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
   const [newPostChallengeType, setNewPostChallengeType] = useState("SFIDA GIORNALIERA");
@@ -34,10 +37,8 @@ const HomeSocial = () => {
       content: "E' stata un'impresa ascoltare Ivan tutte quelle ore, però ne sono uscito vivo.. ahahah! :) ",
       image: require("../materials/EY.jpg"),
       avatar: require("../materials/valerio.png"),
-      challengeType: "SFIDA MENSILE - Monitora tutte le lezioni del mese del corso Developer.",
       likes: [],
       comments: [],
-      points: 500, // Punti guadagnati
     },
     {
       id: 1,
@@ -45,13 +46,11 @@ const HomeSocial = () => {
       creatorName: "Laura Bianchi",
       content: "Buongiorno amici! Iniziamo bene la settimana con questa nuova piantina in ufficio. Vi piace? A me piace TANTISSIMO! #greenlife #greenchallenge #sostenibilità #SfidaSettimanale",
       image: require("../materials/Pianta.jpg"),
-      challengeType: "SFIDA SETTIMANALE - Porta una pianta in ufficio.",
       likes: [2, 3],
       comments: [
         { userId: 2, userName: "Giovanni Verdi", text: "Bellissima pianta!" },
         { userId: 3, userName: "Mario Rossi", text: "Concordo, è stupenda!" },
       ],
-      points: 80, // Punti guadagnati
     },
     {
       id: 2,
@@ -59,10 +58,8 @@ const HomeSocial = () => {
       creatorName: "Giovanni Verdi",
       content: "Ho fatto la sfida green giornaliera! Ecco a voi il mio dolce vegano :D. Che ne pensate? #greenlife #greenchallenge #sostenibilità #SfidaGiornaliera",
       image: require("../materials/Dolce.jpg"),
-      challengeType: "SFIDA GIORNALIERA - Prepara un dolce vegano.",
       likes: [1],
       comments: [],
-      points: 20, // Punti guadagnati
     },
   ]);
 
@@ -94,10 +91,8 @@ const HomeSocial = () => {
       creatorName: `${user.nome} ${user.cognome}`,
       content: newPostContent,
       image: newPostImage,
-      challengeType: newPostChallengeType,
       likes: [],
       comments: [],
-      points: 0, // Nuovi post iniziano con 0 punti
     };
 
     setPosts((prevPosts) => [newPost, ...prevPosts]);
@@ -225,99 +220,87 @@ const HomeSocial = () => {
             )}
           </Menu>
         </Box>
+           {/* Componente per le sfide */}
+        
+          <Box sx={{ width: "60%", p: 2 }}>
+            <Card sx={{ mb: 2, borderColor: "#044c93", borderWidth: 1, borderStyle: "solid" }}>
+              <CardContent>
+                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+            <Avatar
+              alt={`${user.nome} ${user.cognome}`}
+              src={user.avatar || "https://via.placeholder.com/150"}
+              sx={{ width: 50, height: 50, mr: 2 }}
+            />
+            <Typography variant="h6" sx={{ fontWeight: "bold", color: "#044c93" }}>
+              {`${user.nome} ${user.cognome}`}
+            </Typography>
+                </Box>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
+            <TextField
+              placeholder="Pubblica qui la tua sfida!"
+              multiline
+              rows={3}
+              fullWidth
+              variant="outlined"
+              value={newPostContent}
+              onChange={(e) => setNewPostContent(e.target.value)}
+            />
+            <IconButton
+              onClick={() => handleAddEmoji("😊")}
+              sx={{
+                backgroundColor: "#044c93",
+                color: "white",
+                '&:hover': { backgroundColor: "#033b73" },
+              }}
+              
+            >
+              <EmojiEmotionsIcon />
+            </IconButton>
+                </Box>
+                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+                
+            <Button
+              variant="contained"
+              component="label"
+              sx={{ backgroundColor: "#044c93", color: "white" }}
+            >
+              Carica Foto
+              <input
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={(e) => setNewPostImage(URL.createObjectURL(e.target.files[0]))}
+              />
+              
+            </Button>
+                </Box>
+                <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2 }}>
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: "#044c93", color: "white" }}
+              onClick={handleCreatePost}
+            >
+              Pubblica
+            </Button>
+                </Box>
+                {newPostImage && (
+            <CardMedia
+              component="img"
+              sx={{
+                borderRadius: 2,
+                width: "100%",
+                height: "auto",
+                mt: 2,
+              }}
+              image={newPostImage}
+              alt="Immagine caricata"
+            />
+                )}
+                <MenuListe />
+              </CardContent>
+            </Card>
 
-        {/* Feed centrale */}
-        <Box sx={{ width: "60%", p: 2 }}>
-          <Card sx={{ mb: 2, borderColor: "#044c93", borderWidth: 1, borderStyle: "solid" }}>
-            <CardContent>
-              <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                <Avatar
-                  alt={`${user.nome} ${user.cognome}`}
-                  src={user.avatar || "https://via.placeholder.com/150"}
-                  sx={{ width: 50, height: 50, mr: 2 }}
-                />
-                <Typography variant="h6" sx={{ fontWeight: "bold", color: "#044c93" }}>
-                  {`${user.nome} ${user.cognome}`}
-                </Typography>
-              </Box>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-                <TextField
-                  placeholder="Pubblica qui la tua sfida!"
-                  multiline
-                  rows={3}
-                  fullWidth
-                  variant="outlined"
-                  value={newPostContent}
-                  onChange={(e) => setNewPostContent(e.target.value)}
-                />
-                <IconButton
-                  onClick={() => handleAddEmoji("😊")}
-                  sx={{
-                    backgroundColor: "#044c93",
-                    color: "white",
-                    '&:hover': { backgroundColor: "#033b73" },
-                  }}
-                >
-                  <EmojiEmotionsIcon />
-                </IconButton>
-              </Box>
-              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-                <TextField
-                  select
-                  label="Seleziona tipo di sfida"
-                  variant="outlined"
-                  size="small"
-                  sx={{ width: "40%" }}
-                  value={newPostChallengeType}
-                  onChange={(e) => setNewPostChallengeType(e.target.value)}
-                  SelectProps={{
-                    native: true,
-                  }}
-                >
-                  <option value="SFIDA GIORNALIERA">SFIDA GIORNALIERA</option>
-                  <option value="SFIDA SETTIMANALE">SFIDA SETTIMANALE</option>
-                  <option value="SFIDA MENSILE">SFIDA MENSILE</option>
-                </TextField>
-                <Button
-                  variant="contained"
-                  component="label"
-                  sx={{ backgroundColor: "#044c93", color: "white" }}
-                >
-                  Carica Foto
-                  <input
-                    type="file"
-                    accept="image/*"
-                    hidden
-                    onChange={(e) => setNewPostImage(URL.createObjectURL(e.target.files[0]))}
-                  />
-                </Button>
-              </Box>
-              <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2 }}>
-                <Button
-                  variant="contained"
-                  sx={{ backgroundColor: "#044c93", color: "white" }}
-                  onClick={handleCreatePost}
-                >
-                  Pubblica
-                </Button>
-              </Box>
-              {newPostImage && (
-                <CardMedia
-                  component="img"
-                  sx={{
-                    borderRadius: 2,
-                    width: "100%",
-                    height: "auto",
-                    mt: 2,
-                  }}
-                  image={newPostImage}
-                  alt="Immagine caricata"
-                />
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Post finti */}
+            {/* Post finti */}
           {posts.map((post) => (
             <Card key={post.id} sx={{ mb: 2, boxShadow: 3 }}>
               <CardContent>
