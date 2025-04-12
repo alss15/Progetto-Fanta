@@ -245,20 +245,11 @@ const HomeSocial = () => {
               value={newPostContent}
               onChange={(e) => setNewPostContent(e.target.value)}
             />
-            <IconButton
-              onClick={() => handleAddEmoji("😊")}
-              sx={{
-                backgroundColor: "#044c93",
-                color: "white",
-                '&:hover': { backgroundColor: "#033b73" },
-              }}
-              
-            >
-              <EmojiEmotionsIcon />
-            </IconButton>
+            
+            
                 </Box>
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-                
+                <MenuListe />
+                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2, mb: 2, gap: 2 }}>
             <Button
               variant="contained"
               component="label"
@@ -271,10 +262,7 @@ const HomeSocial = () => {
                 hidden
                 onChange={(e) => setNewPostImage(URL.createObjectURL(e.target.files[0]))}
               />
-              
             </Button>
-                </Box>
-                <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2 }}>
             <Button
               variant="contained"
               sx={{ backgroundColor: "#044c93", color: "white" }}
@@ -296,7 +284,7 @@ const HomeSocial = () => {
               alt="Immagine caricata"
             />
                 )}
-                <MenuListe />
+                
               </CardContent>
             </Card>
 

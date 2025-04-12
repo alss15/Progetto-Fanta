@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, Box, Paper, Typography, TextField } from '@mui/material';
 import { getSfidaById, updateSfida, deleteSfida } from '../services/api';
 
 const SfidaDetails = () => {
@@ -13,7 +13,6 @@ const SfidaDetails = () => {
   const [description, setDescription] = useState('');
   const [data, setData] = useState('');
   const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
-
 
   useEffect(() => {
     const fetchSfida = async () => {
@@ -62,73 +61,92 @@ const SfidaDetails = () => {
   }
 
   return (
-    <div className="sfida-details-container">
-      <h2>{sfida.title}</h2>
-      <p>{sfida.description}</p>
-      <p><strong>Data di scadenza:</strong> {new Date(sfida.data).toLocaleDateString()}</p>
+    <Box sx={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
+      <Paper elevation={3} sx={{ padding: '20px', maxWidth: '600px', width: '100%' }}>
+        <Typography variant="h4" gutterBottom>
+          {sfida.title}
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          {sfida.description}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" gutterBottom>
+          <strong>Data di scadenza:</strong> {new Date(sfida.data).toLocaleDateString()}
+        </Typography>
 
-      {user && user.role === 'admin' && (
-        <>
-          <h2>Modifica Sfida</h2>
-          <form onSubmit={handleUpdate}>
-            <div>
-              <label htmlFor="title">Titolo</label>
-              <input
-                type="text"
-                id="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="description">Descrizione</label>
-              <textarea
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="data">Data di scadenza</label>
-              <input
-                type="date"
-                id="data"
-                value={data}
-                onChange={(e) => setData(e.target.value)}
-              />
-            </div>
-            <button type="submit">Aggiorna</button>
-          </form>
-
-          <Button
-            variant="contained"
-            color="error"
-            onClick={handleDelete}
-            sx={{ marginTop: '20px' }}
-          >
-            Elimina Sfida
-          </Button>
-        </>
-      )}
-      <Button
-                component={Link}
-                to="/home-social"
-                variant="contained"
-                sx={{
-                  backgroundColor: "#044c93",
-                  color: "white",
-                  fontWeight: "bold",
-                  transition: "transform 0.2s, box-shadow 0.2s",
-                  '&:hover': { 
-                    backgroundColor: "#033b73",
-                    transform: "scale(1.05)",
-                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)"
-                  },
-                }}
-              >
-                Vai a Home Social
+        {user && user.role === 'admin' && (
+          <>
+            <Typography variant="h5" gutterBottom>
+              Modifica Sfida
+            </Typography>
+            <form onSubmit={handleUpdate}>
+              <Box sx={{ marginBottom: '15px' }}>
+                <TextField
+                  fullWidth
+                  label="Titolo"
+                  variant="outlined"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </Box>
+              <Box sx={{ marginBottom: '15px' }}>
+                <TextField
+                  fullWidth
+                  label="Descrizione"
+                  variant="outlined"
+                  multiline
+                  rows={4}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </Box>
+              <Box sx={{ marginBottom: '15px' }}>
+                <TextField
+                  fullWidth
+                  label="Data di scadenza"
+                  type="date"
+                  InputLabelProps={{ shrink: true }}
+                  value={data}
+                  onChange={(e) => setData(e.target.value)}
+                />
+              </Box>
+              <Button type="submit" variant="contained" color="primary" fullWidth>
+                Aggiorna
               </Button>
-    </div>
+            </form>
+
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleDelete}
+              sx={{ marginTop: '20px', width: '100%' }}
+            >
+              Elimina Sfida
+            </Button>
+          </>
+        )}
+
+        <Button
+          component={Link}
+          to="/home-social"
+          variant="contained"
+          sx={{
+            marginTop: '20px',
+            backgroundColor: "#044c93",
+            color: "white",
+            fontWeight: "bold",
+            transition: "transform 0.2s, box-shadow 0.2s",
+            '&:hover': { 
+              backgroundColor: "#033b73",
+              transform: "scale(1.05)",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)"
+            },
+          }}
+          fullWidth
+        >
+          Vai a Home Social
+        </Button>
+      </Paper>
+    </Box>
   );
 };
 
