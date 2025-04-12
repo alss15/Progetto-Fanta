@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { isLoggedIn, logout } = useAuth();
 
   const [openDialog, setOpenDialog] = useState(null);
 
@@ -62,6 +62,16 @@ const HomePage = () => {
             Le aziende possono creare sfide personalizzate per i propri dipendenti, assegnare punteggi e stabilire tempistiche. 
             Rendi la tua azienda FANTA-stica con il nostro sistema di gamification!
           </Typography>
+          {isLoggedIn && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => navigate('/home-social')}
+              sx={{ display: 'block', margin: '0 auto' }}
+            >
+              Vai a Home Social
+            </Button>
+          )}
         </Paper>
 
         {/* Box per la sezione "Come funzionano le sfide?" */}

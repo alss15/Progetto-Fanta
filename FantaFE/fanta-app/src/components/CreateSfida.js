@@ -198,7 +198,7 @@ const CreateSfida = () => {
             },
           }}
         >
-          Torna alle Sfide
+          Vai a tutte le sfide
         </Button>
       </Box>
 

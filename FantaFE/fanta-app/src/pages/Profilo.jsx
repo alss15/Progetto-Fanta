@@ -28,7 +28,7 @@ const Profilo = () => {
     {
       id: 1,
       creatorId: 1,
-      creatorName: "Valerio Rossi",
+      creatorName: user.nome + " " + user.cognome,
       content: "Sfida settimanale completata! Ecco la mia pianta!",
       image: require("../materials/Pianta.jpg"),
       likes: [2, 3],
@@ -41,7 +41,7 @@ const Profilo = () => {
     {
       id: 2,
       creatorId: 1,
-      creatorName: "Valerio Rossi",
+      creatorName: user.nome + " " + user.cognome,
       content: "Ho completato la sfida green giornaliera!",
       image: require("../materials/Dolce.jpg"),
       likes: [2],
@@ -120,7 +120,7 @@ const Profilo = () => {
                   fullWidth
                   variant="contained"
                   sx={{
-                    mb: 2,
+                    
                     backgroundColor: "#044c93",
                     color: "white",
                     "&:hover": {
@@ -139,7 +139,7 @@ const Profilo = () => {
                     backgroundColor: "#044c93",
                     color: "white",
                     "&:hover": { backgroundColor: "#033b73" },
-                    mb: 3,
+                    mb: 1,
                   }}
                   onClick={handleCreateSfidaClick}
                 >

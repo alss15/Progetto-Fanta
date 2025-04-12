@@ -9,6 +9,7 @@ const SfideList = () => {
   const [sfide, setSfide] = useState([]);
   const [loading, setLoading] = useState(true);
   const [categoria, setCategoria] = useState('Tutte'); // Stato per il filtro categoria
+  const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null; // Recupera l'utente dal localStorage
 
   useEffect(() => {
     const fetchSfide = async () => {
@@ -44,40 +45,9 @@ const SfideList = () => {
 
   return (
     <Box sx={{ padding: 3 }}>
-      {/* Contatore sfide in corso */}
-      <Box sx={{ textAlign: 'center', mb: 1 }}>
-        <Chip
-          icon={<EmojiEventsIcon />}
-          label={`Sfide in corso: ${sfide.length}`}
-          color="primary"
-          sx={{ fontSize: '1rem', fontWeight: 'bold', padding: '10px' }}
-        />
-      </Box>
+      
 
-      {/* Filtro per categoria */}
-      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
-        <Select
-          value={categoria}
-          onChange={(e) => setCategoria(e.target.value)}
-          displayEmpty
-          sx={{
-            minWidth: 200,
-            backgroundColor: '#044c93',
-            color: 'white',
-            fontWeight: 'bold',
-            textAlign: 'center',
-            '& .MuiSelect-icon': { color: 'white' },
-            '& .MuiOutlinedInput-notchedOutline': { borderColor: '#044c93' },
-            '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#033b73' },
-            '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#033b73' },
-          }}
-        >
-          <MenuItem value="Tutte">Tutte</MenuItem>
-          <MenuItem value="Giornaliera">Giornaliere</MenuItem>
-          <MenuItem value="Settimanale">Settimanali</MenuItem>
-          <MenuItem value="Mensile">Mensili</MenuItem>
-        </Select>
-      </Box>
+      
 
       {/* Box per le sfide */}
       <Box
@@ -88,6 +58,36 @@ const SfideList = () => {
           boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
         }}
       >
+        {/* Contatore sfide in corso */}
+      <Box sx={{ textAlign: 'center', mb: 1 }}>
+        <Chip
+          icon={<EmojiEventsIcon />}
+          label={`Sfide in corso: ${sfide.length}`}
+          color="primary"
+          sx={{ fontSize: '1rem', fontWeight: 'bold', padding: '10px' }}
+        />
+      </Box>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+          <Button
+            component={Link}
+            to="/home-social"
+            variant="contained"
+            sx={{
+              gap: 1,
+              backgroundColor: "#044c93",
+              color: "white",
+              fontWeight: "bold",
+              transition: "transform 0.2s, box-shadow 0.2s",
+              '&:hover': { 
+                backgroundColor: "#033b73",
+                transform: "scale(1.05)",
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)"
+              },
+            }}
+          >
+            Vai a Home Social
+          </Button>
+        </Box>
         {filteredSfide.length === 0 ? (
           <Typography variant="h6" align="center" sx={{ color: '#044c93' }}>
             Non ci sono sfide disponibili.
@@ -120,37 +120,22 @@ const SfideList = () => {
                   >
                     Dettagli
                   </Button>
-                  <Button
-                    onClick={() => handleDelete(sfida.id)}
-                    variant="outlined"
-                    color="error"
-                    startIcon={<DeleteIcon />}
-                  >
-                    Elimina
-                  </Button>
+                  {user?.role === 'admin' && (
+                    <Button
+                      onClick={() => handleDelete(sfida.id)}
+                      variant="outlined"
+                      color="error"
+                      startIcon={<DeleteIcon />}
+                    >
+                      Elimina
+                    </Button>
+                  )}
                 </CardActions>
               </Card>
             ))}
           </Box>
         )}
-        <Button
-                component={Link}
-                to="/home-social"
-                variant="contained"
-                sx={{
-                  backgroundColor: "#044c93",
-                  color: "white",
-                  fontWeight: "bold",
-                  transition: "transform 0.2s, box-shadow 0.2s",
-                  '&:hover': { 
-                    backgroundColor: "#033b73",
-                    transform: "scale(1.05)",
-                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)"
-                  },
-                }}
-              >
-                Vai a Home Social
-              </Button>
+        
       </Box>
     </Box>
   );
