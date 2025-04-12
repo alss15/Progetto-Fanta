@@ -178,6 +178,22 @@ const HomeSocial = () => {
               Profilo
             </Button>
           </Link>
+          <Link to="/sfide" style={{ textDecoration: "none" }}>
+            <Button
+              fullWidth
+              variant="contained"
+              sx={{
+                mb: 1,
+                backgroundColor: "#044c93",
+                color: "white",
+                '&:hover': {
+                  backgroundColor: "#033b73",
+                },
+              }}
+            >
+              Sfide
+            </Button>
+          </Link>
           <Button
             fullWidth
             variant="contained"
