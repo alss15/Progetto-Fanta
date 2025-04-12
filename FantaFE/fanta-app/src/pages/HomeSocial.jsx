@@ -45,7 +45,7 @@ const HomeSocial = () => {
       creatorName: "Laura Bianchi",
       content: "Buongiorno amici! Iniziamo bene la settimana con questa nuova piantina in ufficio. Vi piace? A me piace TANTISSIMO! #greenlife #greenchallenge #sostenibilità #SfidaSettimanale",
       image: require("../materials/Pianta.jpg"),
-      challengeType: "SFIDA SETTIMANALE",
+      challengeType: "SFIDA SETTIMANALE - Porta una pianta in ufficio.",
       likes: [2, 3],
       comments: [
         { userId: 2, userName: "Giovanni Verdi", text: "Bellissima pianta!" },
@@ -59,7 +59,7 @@ const HomeSocial = () => {
       creatorName: "Giovanni Verdi",
       content: "Ho fatto la sfida green giornaliera! Ecco a voi il mio dolce vegano :D. Che ne pensate? #greenlife #greenchallenge #sostenibilità #SfidaGiornaliera",
       image: require("../materials/Dolce.jpg"),
-      challengeType: "SFIDA GIORNALIERA",
+      challengeType: "SFIDA GIORNALIERA - Prepara un dolce vegano.",
       likes: [1],
       comments: [],
       points: 20, // Punti guadagnati
